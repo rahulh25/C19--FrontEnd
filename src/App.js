@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { connect } from "react-redux";
 import { simpleAction } from "./actions/simpleAction";
+import SplashPage from "./SplashPage";
 /*
  * mapStateToProps
  */
@@ -21,7 +22,7 @@ class App extends React.Component {
   }
 
   render() {
-    return <h1>Hello</h1>;
+    return <SplashPage />;
   }
 }
 
