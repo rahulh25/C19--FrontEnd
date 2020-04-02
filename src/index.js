@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import TestComponent from "./TestComponent";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import configureStore from "./store";
@@ -13,6 +14,9 @@ ReactDOM.render(
       <Router>
         <Route path="/dev">
           <App />
+        </Route>
+        <Route path="/test">
+          <TestComponent />
         </Route>
       </Router>
     </Provider>

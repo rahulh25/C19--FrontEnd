@@ -10,16 +10,14 @@ class SplashPage extends React.Component {
       <div className="container">
         {" "}
         <div className="bgimg">
-          <div className="topleft">
-            <p>Logo</p>
-          </div>
           <div className="middle">
-            <h1>SITE UNDER CONSTRUCTION</h1>
+            <h1>
+              NEU AI Skunkworks COVID-19 Response Site is Currently Under
+              Construction
+            </h1>
+            <h4>If you wish to contribute, please email to nikbearbrown@gmail.com</h4>
             <hr />
           </div>
-          {/* <div className="bottomleft">
-            <p>Some text</p>
-          </div> */}
         </div>
       </div>
     );
