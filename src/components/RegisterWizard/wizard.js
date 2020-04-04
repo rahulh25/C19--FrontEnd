@@ -8,6 +8,7 @@ import transitions from "./transitions.less";
 import "react-datepicker/dist/react-datepicker.css";
 import First from "./First";
 import Second from "./Second";
+import Third from "./Third";
 import Stats from "./Stats";
 /* eslint react/prop-types: 0 */
 
@@ -22,8 +23,8 @@ const Wizard = () => {
       enterLeft: `${transitions.animated} ${transitions.enterLeft}`,
       exitRight: `${transitions.animated} ${transitions.exitRight}`,
       exitLeft: `${transitions.animated} ${transitions.exitLeft}`,
-      intro: `${transitions.animated} ${transitions.intro}`
-    }
+      intro: `${transitions.animated} ${transitions.intro}`,
+    },
     //demo: true, // uncomment to see more
   });
 
@@ -33,19 +34,19 @@ const Wizard = () => {
     console.log("After state update : " + JSON.stringify(form));
     updateState({
       ...state,
-      form
+      form,
     });
   };
 
   // Do something on step change
-  const onStepChange = stats => {
+  const onStepChange = (stats) => {
     // console.log(stats);
   };
 
-  const setInstance = SW =>
+  const setInstance = (SW) =>
     updateState({
       ...state,
-      SW
+      SW,
     });
 
   const { SW, demo } = state;
@@ -68,9 +69,12 @@ const Wizard = () => {
                 form={state.form}
                 update={updateForm}
               />
-              <Second form={state.form} />
-              <Progress />
-              <Last form={state.form} hashKey={"TheEnd!"} />
+              <Second form={state.form} update={updateForm} />
+              <Third
+                form={state.form}
+                hashKey={"TheEnd!"}
+                update={updateForm}
+              />
             </StepWizard>
           </div>
         </div>
@@ -96,54 +100,3 @@ const InstanceDemo = ({ SW }) => (
   </Fragment>
 );
 
-const Progress = props => {
-  const [state, updateState] = useState({
-    isActiveClass: "",
-    timeout: null
-  });
-
-  useEffect(() => {
-    const { timeout } = state;
-
-    if (props.isActive && !timeout) {
-      updateState({
-        isActiveClass: styles.loaded,
-        timeout: setTimeout(() => {
-          props.nextStep();
-        }, 3000)
-      });
-    } else if (!props.isActive && timeout) {
-      clearTimeout(timeout);
-      updateState({
-        isActiveClass: "",
-        timeout: null
-      });
-    }
-  });
-
-  return (
-    <div className={styles["progress-wrapper"]}>
-      <p className="text-center">Automated Progress...</p>
-      <div className={`${styles.progress} ${state.isActiveClass}`}>
-        <div className={`${styles["progress-bar"]} progress-bar-striped`} />
-      </div>
-    </div>
-  );
-};
-
-const Last = props => {
-  const submit = () => {
-    alert("You did it! Yay!"); // eslint-disable-line
-  };
-
-  return (
-    <div>
-      <div className={"text-center"}>
-        <h3>This is the last step in this example!</h3>
-        <hr />
-        <Plugs />
-      </div>
-      <Stats step={4} {...props} nextStep={submit} />
-    </div>
-  );
-};

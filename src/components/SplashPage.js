@@ -7,7 +7,7 @@ class SplashPage extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         {" "}
         <div className="bgimg">
           <div className="middle">

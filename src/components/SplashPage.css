@@ -1,8 +1,8 @@
 .bgimg {
     background-image: url('./images/comingSoon_2.JPG');
-    height: 1000px;
+    height: 750px;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center 250px;
     background-color: lightgray;
     position: relative;
     font-family: "Courier New", Courier, monospace;
@@ -28,7 +28,7 @@
 
 .middle {
     position: absolute;
-    top: 15%;
+    top: 18%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
