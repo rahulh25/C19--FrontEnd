@@ -2,21 +2,30 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import Login from "./components/login.component";
+import Register from "./components/register.component";
 import TestComponent from "./TestComponent";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import configureStore from "./store";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={configureStore()}>
       <Router>
-        <Route path="/dev">
+        <Route exact path="/">
           <App />
         </Route>
-        <Route path="/test">
+        <Route path="/hello">
           <TestComponent />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
         </Route>
       </Router>
     </Provider>
