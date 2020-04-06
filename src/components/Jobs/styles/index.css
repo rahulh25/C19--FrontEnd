@@ -1,5 +1,8 @@
 .jobs__layout {
   height: 100%;
+}
+
+.jobs__content {
   overflow: hidden;
   padding: 20px;
 }
