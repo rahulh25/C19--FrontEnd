@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import StepWizard from "react-step-wizard";
 import Nav from "./nav";
-import Plugs from "./Plugs";
 import "./wizard.css";
 import styles from "./wizard.less";
 import transitions from "./transitions.less";
@@ -9,13 +8,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import First from "./First";
 import Second from "./Second";
 import Third from "./Third";
-import Stats from "./Stats";
+import Fourth from "./Fourth";
 /* eslint react/prop-types: 0 */
 
 /**
  * A basic demonstration of how to use the step wizard
  */
 const Wizard = () => {
+  const [onRegister, setOnRegister] = useState(false);
   const [state, updateState] = useState({
     form: {},
     transitions: {
@@ -48,7 +48,10 @@ const Wizard = () => {
       ...state,
       SW,
     });
-
+  const register = () => {
+    console.log(state);
+    setOnRegister(true);
+  };
   const { SW, demo } = state;
 
   return (
@@ -58,24 +61,28 @@ const Wizard = () => {
           <div
             className={`col-12 col-sm-6 offset-sm-3 ${styles["rsw-wrapper"]}`}
           >
-            <StepWizard
-              onStepChange={onStepChange}
-              //  transitions={state.transitions} // comment out for default transitions
-              nav={<Nav />}
-              instance={setInstance}
-            >
-              <First
-                hashKey={"FirstStep"}
-                form={state.form}
-                update={updateForm}
-              />
-              <Second form={state.form} update={updateForm} />
-              <Third
-                form={state.form}
-                hashKey={"TheEnd!"}
-                update={updateForm}
-              />
-            </StepWizard>
+            {onRegister == true ? (
+              <Fourth form={state.form} />
+            ) : (
+              <StepWizard
+                onStepChange={onStepChange}
+                transitions={state.transitions} // comment out for default transitions
+                nav={<Nav />}
+                instance={setInstance}
+              >
+                <First
+                  hashKey={"FirstStep"}
+                  form={state.form}
+                  update={updateForm}
+                />
+                <Second form={state.form} update={updateForm} />
+                <Third
+                  form={state.form}
+                  update={updateForm}
+                  register={register}
+                />
+              </StepWizard>
+            )}
           </div>
         </div>
       </div>
@@ -99,4 +106,3 @@ const InstanceDemo = ({ SW }) => (
     </button>
   </Fragment>
 );
-

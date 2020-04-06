@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select";
 import Input from "@material-ui/core/Input";
 import Chip from "@material-ui/core/Chip";
 import Stats from "./Stats";
+import Checkbox from "@material-ui/core/Checkbox";
 
 function getStyles(skill, selectedSkill) {
   return {
@@ -20,12 +21,18 @@ class Third extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      checked: "",
       value: "",
       education: "",
       selectedSkills: [],
     };
   }
-
+  handleTermsandconditions = (event) => {
+    this.setState({
+      checked: event.target.checked,
+    });
+    this.props.update("terms", event.target.checked);
+  };
   handleChange = (event) => {
     this.setState({
       value: event.target.value,
@@ -75,8 +82,8 @@ class Third extends React.Component {
     const validate = () => {
       this.props.previousStep();
     };
-    const submit = () => {};
-    const { value, education, selectedSkills } = this.state;
+
+    const { value, education, selectedSkills, checked } = this.state;
     return (
       <div>
         <div>
@@ -164,11 +171,27 @@ class Third extends React.Component {
             onChange={this.updatePortfoliolink}
           />
         </div>
+        <Checkbox
+          defaultChecked
+          checked={checked}
+          onChange={this.handleTermsandconditions}
+          size="small"
+          inputProps={{ "aria-label": "checkbox with small size" }}
+        />
+        <label>
+          <a
+            href="https://www.northeastern.edu/privacy-information/"
+            target="_blank"
+          >
+            I agree the the Skunka.ai EULA
+          </a>
+          <span className="requiredColor">*</span>
+        </label>
         <Stats
           step={3}
           {...this.props}
           previousStep={validate}
-          nextStep={submit}
+          nextStep={() => this.props.register()}
         />
       </div>
     );
