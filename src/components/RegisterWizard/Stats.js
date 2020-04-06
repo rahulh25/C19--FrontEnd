@@ -21,6 +21,10 @@ class Stats extends React.Component {
       let bool = obj.hasOwnProperty(key) && obj[key] != "" && obj[key] != null;
       return bool;
     };
+    const isTermsChecked = (obj, key) => {
+      let bool = obj.hasOwnProperty(key) && obj[key] == true;
+      return bool;
+    };
     const validateRequired = () => {
       if (step == 1) {
         let result =
@@ -35,9 +39,12 @@ class Stats extends React.Component {
           return;
         }
       } else if (step == 2) {
+        const { isEmailAddress, isEmailAlreadyExists } = this.props;
         let result =
           form != undefined &&
           hasValue(form, "email") &&
+          isEmailAddress &&
+          !isEmailAlreadyExists &&
           hasValue(form, "password") &&
           hasValue(form, "confirmpassword");
         if (!result) {
@@ -51,7 +58,8 @@ class Stats extends React.Component {
           hasValue(form, "type") &&
           hasValue(form, "education") &&
           hasValue(form, "skills") &&
-          hasValue(form, "portfolioLink");
+          hasValue(form, "portfolioLink") &&
+          isTermsChecked(form, "terms");
         if (!result) {
           ///alert the user to input required
           alert("Please input all the required fields!");
@@ -71,19 +79,19 @@ class Stats extends React.Component {
             Go Back
           </button>
         )}
-        {step < totalSteps ? (
-          <button
-            className="btn btn-primary btn-block"
-            onClick={validateRequired}
-          >
-            Continue
-          </button>
-        ) : (
+        {step == 3 ? (
           <button
             className="btn btn-success btn-block"
             onClick={validateRequired}
           >
             Register
+          </button>
+        ) : (
+          <button
+            className="btn btn-primary btn-block"
+            onClick={validateRequired}
+          >
+            Continue
           </button>
         )}
       </div>
