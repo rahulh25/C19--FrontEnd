@@ -8,9 +8,7 @@ class Register extends React.Component {
   }
 
   render() {
-    return (
-        <RegisterWizard />
-    );
+    return <RegisterWizard />;
   }
 }
 

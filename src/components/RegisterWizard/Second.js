@@ -53,7 +53,7 @@ class Second extends React.Component {
           .catch((err) => {
             console.log(`Error while retrieving users${err}`);
             this.setState({
-              errorMessage: err.message,
+              errorMessage: `${err.response.data.message} ${err.message}`,
             });
           });
       } else {
