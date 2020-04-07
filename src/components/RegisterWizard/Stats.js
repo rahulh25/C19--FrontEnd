@@ -31,8 +31,7 @@ class Stats extends React.Component {
           form != undefined &&
           hasValue(form, "firstName") &&
           hasValue(form, "lastName") &&
-          hasValue(form, "dateofBirth") &&
-          hasValue(form, "gender");
+          hasValue(form, "dateofBirth") 
         if (!result) {
           ///alert the user to input required
           alert("Please input all the required fields!");

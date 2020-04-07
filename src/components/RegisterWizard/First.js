@@ -47,7 +47,7 @@ class First extends React.Component {
           {" "}
           <DateOfBirth onUpdate={updateDate} />
         </div>
-        <label>Gender <span className="requiredColor">*</span></label>
+        <label>Gender</label>
         <Gender onUpdate={updateGender} />
         <Stats step={1} {...this.props} />
       </div>

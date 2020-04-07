@@ -25,7 +25,7 @@ class Fourth extends Component {
       .catch((err) => {
         console.log(`Error while registering user${err}`);
         this.setState({
-          errorMessage: err.message,
+          errorMessage: `${err.response.data.message} ${err.message}`,
           register: true,
         });
       });
