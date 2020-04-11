@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import StepWizard from "react-step-wizard";
 import Nav from "./nav";
-import Plugs from "./Plugs";
 import "./wizard.css";
 import styles from "./wizard.less";
 import transitions from "./transitions.less";
@@ -9,13 +8,17 @@ import "react-datepicker/dist/react-datepicker.css";
 import First from "./First";
 import Second from "./Second";
 import Third from "./Third";
-import Stats from "./Stats";
+import Fourth from "./Fourth";
+import { FaUser } from "react-icons/fa";
+import { withRouter } from "react-router-dom";
+
 /* eslint react/prop-types: 0 */
 
 /**
  * A basic demonstration of how to use the step wizard
  */
-const Wizard = () => {
+const Wizard = (props) => {
+  const [onRegister, setOnRegister] = useState(false);
   const [state, updateState] = useState({
     form: {},
     transitions: {
@@ -48,19 +51,34 @@ const Wizard = () => {
       ...state,
       SW,
     });
-
+  const register = () => {
+    console.log(state);
+    setOnRegister(true);
+  };
+  const signIn = () => {
+    props.history.push("/login");
+  };
   const { SW, demo } = state;
 
   return (
-    <div>
-      <div className={"jumbotron"}>
-        <div className="row">
-          <div
-            className={`col-12 col-sm-6 offset-sm-3 ${styles["rsw-wrapper"]}`}
-          >
+    <div className={"jumbotron wizardContainer"}>
+      <div className="signInBtn">
+        <div className="text-muted">Already have an account?</div>{" "}
+        <button
+          className="btn btn-success btn-block signInBtn"
+          onClick={signIn}
+        >
+          Sign In <FaUser />
+        </button>
+      </div>
+      <div className="row">
+        <div className={`col-12 col-sm-6 offset-sm-3 ${styles["rsw-wrapper"]}`}>
+          {onRegister == true ? (
+            <Fourth form={state.form} />
+          ) : (
             <StepWizard
               onStepChange={onStepChange}
-              //  transitions={state.transitions} // comment out for default transitions
+              transitions={state.transitions} // comment out for default transitions
               nav={<Nav />}
               instance={setInstance}
             >
@@ -72,31 +90,15 @@ const Wizard = () => {
               <Second form={state.form} update={updateForm} />
               <Third
                 form={state.form}
-                hashKey={"TheEnd!"}
                 update={updateForm}
+                register={register}
               />
             </StepWizard>
-          </div>
+          )}
         </div>
       </div>
-      {demo && SW && <InstanceDemo SW={SW} />}
     </div>
   );
 };
 
-export default Wizard;
-
-/** Demo of using instance */
-const InstanceDemo = ({ SW }) => (
-  <Fragment>
-    <h4>Control from outside component</h4>
-    <button className={"btn btn-secondary"} onClick={SW.previousStep}>
-      Previous Step
-    </button>
-    &nbsp;
-    <button className={"btn btn-secondary"} onClick={SW.nextStep}>
-      Next Step
-    </button>
-  </Fragment>
-);
-
+export default withRouter(Wizard);

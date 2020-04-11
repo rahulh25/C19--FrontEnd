@@ -5,3 +5,14 @@
 .requiredColor {
     color: red;
 }
+
+.wizardContainer {
+    height: inherit;
+    margin-bottom: 0em !important;
+}
+
+.signInBtn {
+    width: 25%;
+    position: relative;
+    margin: 0 auto;
+}

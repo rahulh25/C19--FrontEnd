@@ -4,17 +4,18 @@ import './index.css';
 import App from './App';
 import Login from './components/login.component';
 import Register from './components/register.component';
+import Dashboard from './components/dashboard.component';
 import { Jobs } from './components';
 import TestComponent from './TestComponent';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import store from './store';
+import configureStore from './store';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={configureStore()}>
       <Router>
         <Route exact path="/">
           <App />
@@ -30,6 +31,9 @@ ReactDOM.render(
         </Route>
         <Route path="/jobs">
           <Jobs />
+        </Route>
+        <Route path="/dashboard">
+          <Dashboard />
         </Route>
       </Router>
     </Provider>
