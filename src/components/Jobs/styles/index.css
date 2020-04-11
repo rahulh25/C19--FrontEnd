@@ -3,10 +3,15 @@
 }
 
 .jobs__content {
-  overflow: hidden;
+  overflow-x: hidden;
   padding: 20px;
+  min-height: 100vh;
 }
 
 .job-card__card {
   width: 100%;
+}
+
+.jobs_pagination {
+  justify-content: center;
 }

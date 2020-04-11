@@ -6,7 +6,7 @@ const { Paragraph, Text, Title } = Typography;
 
 export const JobCard = ({ job }) => {
   const { jobTitle: title, description, postedDate, skills } = job;
-  const datePosted = new Date(postedDate);
+  const date = Date.parse(postedDate);
   return (
     <List.Item>
       <Card hoverable className="job-card__card">
@@ -24,7 +24,7 @@ export const JobCard = ({ job }) => {
           )}
         />
         <Text type="secondary" style={{ fontSize: '10px' }}>
-          Posted {moment(datePosted).fromNow()}
+          Posted {moment(date).fromNow()}
         </Text>
       </Card>
     </List.Item>
