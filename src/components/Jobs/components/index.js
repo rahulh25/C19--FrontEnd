@@ -1,2 +1,2 @@
-export * from './JobsCard';
+export * from './JobCard';
 export * from './BoardHeader';

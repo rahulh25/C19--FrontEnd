@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Affix, Col, Layout, List, Row } from 'antd';
 import { BoardHeader, JobCard } from './components';
-import { testJobs } from '../../lib/mock';
 import './styles/index.css';
 import 'antd/dist/antd.css';
+import { getJobs } from '../../actions/jobPostingActions';
+import { useSelector, useDispatch } from 'react-redux';
 
 const { Content, Header } = Layout;
 
 export const Jobs = () => {
+  const listings = useSelector((state) => state.jobsReducer.jobs);
+  const dispatch = useDispatch();
+
+  const queryListings = async () => {
+    await dispatch(getJobs());
+  };
+
+  useEffect(() => {
+    queryListings();
+  }, []);
+
   return (
     <Layout className="jobs__layout">
       <Affix offsetTop={0}>
@@ -18,7 +30,7 @@ export const Jobs = () => {
           <Col span={16}>
             <List
               header={<BoardHeader />}
-              dataSource={testJobs}
+              dataSource={listings}
               renderItem={(item) => <JobCard job={item} />}
               pagination={{
                 hideOnSinglePage: true,

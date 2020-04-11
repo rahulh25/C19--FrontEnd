@@ -5,8 +5,8 @@ import { Card, List, Tag, Typography } from 'antd';
 const { Paragraph, Text, Title } = Typography;
 
 export const JobCard = ({ job }) => {
-  const { title, description, postedOn, skills } = job;
-  const datePosted = new Date(postedOn);
+  const { jobTitle: title, description, postedDate, skills } = job;
+  const datePosted = new Date(postedDate);
   return (
     <List.Item>
       <Card hoverable className="job-card__card">

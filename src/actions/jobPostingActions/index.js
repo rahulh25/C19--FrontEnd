@@ -5,9 +5,10 @@ export const getJobs = () => async (dispatch) => {
   dispatch({ type: LOADING_JOBS });
 
   try {
-    const res = await axios.get('/dev/jobPosting');
+    const res = await axios.get('http://localhost:3000/dev/jobPosting');
+    console.log(res);
 
-    dispatch({ type: LOADED_JOBS, payload: res.message });
+    dispatch({ type: LOADED_JOBS, payload: res.data.message });
   } catch (error) {
     // handle error
     dispatch({ type: JOBS_ERROR });
