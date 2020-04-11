@@ -5,6 +5,7 @@ import App from "./App";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Dashboard from "./components/dashboard.component";
+import ForgotPassword from "./components/forgotpassword.component"
 import TestComponent from "./TestComponent";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
@@ -30,6 +31,9 @@ ReactDOM.render(
         </Route>
         <Route path="/dashboard">
           <Dashboard />
+        </Route>
+        <Route path="/forgotPassword">
+          <ForgotPassword />
         </Route>
       </Router>
     </Provider>

@@ -12,6 +12,7 @@ class Fourth extends Component {
     };
   }
   registerUser = () => {
+    window.scroll(0, 0);
     const { form } = this.props;
     console.log(form);
     axios
