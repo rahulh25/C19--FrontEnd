@@ -5,6 +5,7 @@ import App from "./App";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Dashboard from "./components/dashboard.component";
+import Homepage from "./components/homepage.component";
 import TestComponent from "./TestComponent";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
@@ -18,6 +19,9 @@ ReactDOM.render(
       <Router>
         <Route exact path="/">
           <App />
+        </Route>
+        <Route path="/homepage">
+          <Homepage/>
         </Route>
         <Route path="/hello">
           <TestComponent />
