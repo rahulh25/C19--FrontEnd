@@ -1,32 +1,47 @@
 import React from 'react';
 import moment from 'moment';
-import { Card, List, Tag, Typography } from 'antd';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Chip from '@material-ui/core/Chip';
+import ListItem from '@material-ui/core/ListItem';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
-const { Paragraph, Text, Title } = Typography;
+const useStyles = makeStyles({
+  card: {
+    width: '100%',
+  },
+  chip: {
+    margin: '0 5px',
+    background: 'linear-gradient(45deg, #d41b2c 30%, #93291e 90%)',
+    color: '#ffffff',
+  },
+});
 
 export const JobCard = ({ job }) => {
+  const classes = useStyles();
   const { jobTitle: title, description, postedDate, skills } = job;
   const date = Date.parse(postedDate);
   return (
-    <List.Item>
-      <Card hoverable className="job-card__card">
-        <Title level={3}>{title}</Title>
-        <Paragraph>{description}</Paragraph>
-        <br />
-        <List
-          itemLayout="horizontal"
-          grid={{ gutter: 4 }}
-          dataSource={skills}
-          renderItem={(skill) => (
-            <List.Item>
-              <Tag>{skill}</Tag>
-            </List.Item>
-          )}
+    <ListItem>
+      <Card classes={{ root: classes.card }}>
+        <CardHeader
+          title={title}
+          subheader={`Posted ${moment(date).fromNow()}`}
         />
-        <Text type="secondary" style={{ fontSize: '10px' }}>
-          Posted {moment(date).fromNow()}
-        </Text>
+        <CardContent>
+          <Typography paragraph>{description}</Typography>
+          {skills.map((skill) => (
+            <Chip
+              classes={{ root: classes.chip }}
+              key={`skill-${skill}`}
+              size="small"
+              label={skill}
+            />
+          ))}
+        </CardContent>
       </Card>
-    </List.Item>
+    </ListItem>
   );
 };

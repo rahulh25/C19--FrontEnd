@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Affix, Col, Layout, Row } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import { getJobs } from '../../actions/jobPostingActions';
 import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
 import Pagination from '@material-ui/lab/Pagination';
-import { makeStyles } from '@material-ui/core/styles';
 import { BoardHeader, JobCard } from './components';
 import './styles/index.css';
-import 'antd/dist/antd.css';
-import { getJobs } from '../../actions/jobPostingActions';
-import { useSelector, useDispatch } from 'react-redux';
 
-const { Content, Header } = Layout;
 const PAGE_SIZE = 5;
 const useStyles = makeStyles({
   ul: {
@@ -46,17 +43,6 @@ export const Jobs = () => {
     <Container>
       <List className="jobs__list">
         {dataSource && dataSource.map((item) => <JobCard job={item} />)}
-        {/* <List
-              header={<BoardHeader />}
-              dataSource={listings}
-              renderItem={(item) => <JobCard job={item} />}
-              pagination={{
-                hideOnSinglePage: true,
-                defaultCurrent: 1,
-                defaultPageSize: 5,
-                simple: true,
-              }}
-            /> */}
       </List>
       <Pagination
         count={
