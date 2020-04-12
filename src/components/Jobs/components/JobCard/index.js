@@ -4,6 +4,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Chip from '@material-ui/core/Chip';
+import LabelIcon from '@material-ui/icons/Label';
+import HourglassFullIcon from '@material-ui/icons/HourglassFull';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,17 +16,26 @@ const useStyles = makeStyles({
   },
   chip: {
     margin: '0 5px',
-    background: 'linear-gradient(45deg, #d41b2c 30%, #93291e 90%)',
+    background: '#d41b2c',
     color: '#ffffff',
+  },
+  weeklyTime: {
+    marginRight: '10px',
   },
 });
 
 export const JobCard = ({ job }) => {
   const classes = useStyles();
-  const { jobTitle: title, description, postedDate, skills } = job;
+  const {
+    jobTitle: title,
+    weeklycommitment,
+    description,
+    postedDate,
+    skills,
+  } = job;
   const date = Date.parse(postedDate);
   return (
-    <ListItem>
+    <ListItem disableGutters>
       <Card classes={{ root: classes.card }}>
         <CardHeader
           title={title}
@@ -32,6 +43,11 @@ export const JobCard = ({ job }) => {
         />
         <CardContent>
           <Typography paragraph>{description}</Typography>
+          <HourglassFullIcon />
+          <Typography classes={{ root: classes.weeklyTime }} variant="caption">
+            {weeklycommitment} hrs/wk
+          </Typography>
+          <LabelIcon />
           {skills.map((skill) => (
             <Chip
               classes={{ root: classes.chip }}

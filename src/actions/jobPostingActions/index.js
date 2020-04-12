@@ -13,3 +13,19 @@ export const getJobs = () => async (dispatch) => {
     dispatch({ type: JOBS_ERROR });
   }
 };
+
+export const getJobsBySearch = (query) => async (dispatch) => {
+  dispatch({ type: LOADING_JOBS });
+
+  try {
+    const res = await axios.get(
+      `http://localhost:3000/dev/jobPosting/searchjobs/${query}`
+    );
+    console.log(query);
+
+    dispatch({ type: LOADED_JOBS, payload: res.data.message });
+  } catch (error) {
+    // handle error
+    dispatch({ type: JOBS_ERROR });
+  }
+};

@@ -5,13 +5,17 @@ import { getJobs } from '../../actions/jobPostingActions';
 import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
 import Pagination from '@material-ui/lab/Pagination';
-import { BoardHeader, JobCard } from './components';
+import { JobsHeader, JobCard } from './components';
 import './styles/index.css';
 
 const PAGE_SIZE = 5;
 const useStyles = makeStyles({
   ul: {
     justifyContent: 'center',
+  },
+  container: {
+    minHeight: '100%',
+    padding: '16px',
   },
 });
 
@@ -40,8 +44,8 @@ export const Jobs = () => {
       : [...listings];
 
   return (
-    <Container>
-      <List className="jobs__list">
+    <Container classes={{ root: classes.container }}>
+      <List className="jobs__list" subheader={<JobsHeader />}>
         {dataSource && dataSource.map((item) => <JobCard job={item} />)}
       </List>
       <Pagination
