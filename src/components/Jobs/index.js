@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { getJobs } from '../../actions/jobPostingActions';
+import { ErrorBanner } from '../../lib/components';
+import { useJobs } from '../../lib/api';
 import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
 import Pagination from '@material-ui/lab/Pagination';
@@ -21,22 +21,13 @@ const useStyles = makeStyles({
 
 export const Jobs = () => {
   const classes = useStyles();
-  const listings = useSelector((state) => state.jobsReducer.jobs);
   const [currentPage, setCurrentPage] = useState(1);
-  const dispatch = useDispatch();
-
-  const queryListings = async () => {
-    await dispatch(getJobs());
-  };
+  const [listings, loading, error] = useJobs();
 
   const handlePageChange = (event, page) => {
     event.preventDefault();
     setCurrentPage(page);
   };
-
-  useEffect(() => {
-    queryListings();
-  }, []);
 
   const dataSource =
     listings.length > PAGE_SIZE
@@ -45,6 +36,8 @@ export const Jobs = () => {
 
   return (
     <Container classes={{ root: classes.container }}>
+      <ErrorBanner error={error} message={error} />
+      {loading && <p>Loading...</p>}
       <List className="jobs__list" subheader={<JobsHeader />}>
         {dataSource && dataSource.map((item) => <JobCard job={item} />)}
       </List>

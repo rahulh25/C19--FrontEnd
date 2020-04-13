@@ -12,6 +12,7 @@ export const jobsReducer = (state = initialState, action) => {
         ...state,
         jobs: action.payload,
         loading: false,
+        error: null,
       };
     case LOADING_JOBS:
       return {

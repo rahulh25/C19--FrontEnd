@@ -6,11 +6,14 @@ export const getJobs = () => async (dispatch) => {
 
   try {
     const res = await axios.get('http://localhost:3000/dev/jobPosting');
-
-    dispatch({ type: LOADED_JOBS, payload: res.data.message });
+    if (res.status === 200) {
+      dispatch({ type: LOADED_JOBS, payload: res.data.message });
+    } else {
+      dispatch({ type: JOBS_ERROR, payload: res.data.message });
+    }
   } catch (error) {
     // handle error
-    dispatch({ type: JOBS_ERROR });
+    dispatch({ type: JOBS_ERROR, payload: error.message });
   }
 };
 
@@ -21,11 +24,14 @@ export const getJobsBySearch = (query) => async (dispatch) => {
     const res = await axios.get(
       `http://localhost:3000/dev/jobPosting/searchjobs/${query}`
     );
-    console.log(query);
 
-    dispatch({ type: LOADED_JOBS, payload: res.data.message });
+    if (res.status === 200) {
+      dispatch({ type: LOADED_JOBS, payload: res.data.message });
+    } else {
+      dispatch({ type: JOBS_ERROR, payload: res.data.message });
+    }
   } catch (error) {
     // handle error
-    dispatch({ type: JOBS_ERROR });
+    dispatch({ type: JOBS_ERROR, payload: error.message });
   }
 };
