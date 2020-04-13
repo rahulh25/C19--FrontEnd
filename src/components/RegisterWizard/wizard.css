@@ -53,7 +53,7 @@
     transition: all 0.4s;
 }
 
-.container-signInBtn {
+/* .container-signInBtn {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -62,4 +62,4 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-}
+} */
