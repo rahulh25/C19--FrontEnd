@@ -5,43 +5,60 @@ import App from './App';
 import Login from './components/login.component';
 import Register from './components/register.component';
 import Dashboard from './components/dashboard.component';
+import ForgotPassword from './components/forgotpassword.component';
 import Homepage from './components/homepage.component';
-import { Jobs } from './components';
 import TestComponent from './TestComponent';
+import { Jobs } from './components';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { transitions, positions, Provider as AlertProvider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
+// optional cofiguration
+const options = {
+  // you can also just use 'bottom center'
+  position: positions.TOP_CENTER,
+  timeout: 10000,
+  // offset: "30px",
+  // you can also just use 'scale'
+  transition: transitions.SCALE,
+};
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={configureStore()}>
-      <Router>
-        <Route exact path="/">
-          <App />
-        </Route>
-        <Route path="/homepage">
-          <Homepage />
-        </Route>
-        <Route path="/hello">
-          <TestComponent />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/jobs">
-          <Jobs />
-        </Route>
-        <Route path="/dashboard">
-          <Dashboard />
-        </Route>
-      </Router>
-    </Provider>
-  </React.StrictMode>,
+  <AlertProvider template={AlertTemplate} {...options}>
+    <React.StrictMode>
+      <Provider store={configureStore()}>
+        <Router>
+          <Route exact path="/">
+            <App />
+          </Route>
+          <Route path="/homepage">
+            <Homepage />
+          </Route>
+          <Route path="/hello">
+            <TestComponent />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+          <Route path="/forgotPassword">
+            <ForgotPassword />
+          </Route>
+          <Route path="/jobs">
+            <Jobs />
+          </Route>
+        </Router>
+      </Provider>
+    </React.StrictMode>
+  </AlertProvider>,
   document.getElementById('root')
 );
 

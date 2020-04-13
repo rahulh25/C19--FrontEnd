@@ -31,7 +31,7 @@ class Stats extends React.Component {
           form != undefined &&
           hasValue(form, "firstName") &&
           hasValue(form, "lastName") &&
-          hasValue(form, "dateofBirth") 
+          hasValue(form, "dateofBirth");
         if (!result) {
           ///alert the user to input required
           alert("Please input all the required fields!");
@@ -71,27 +71,25 @@ class Stats extends React.Component {
       <div>
         <hr />
         {step > 1 && (
-          <button
-            className="btn btn-secondary btn-block"
-            onClick={previousStep}
-          >
-            Go Back
-          </button>
+          <div className="container-backBtn">
+            <button className="backBtn" onClick={previousStep}>
+              Go Back
+            </button>
+            <br />
+          </div>
         )}
         {step == 3 ? (
-          <button
-            className="btn btn-success btn-block"
-            onClick={validateRequired}
-          >
-            Register
-          </button>
+          <div className="container-registerBtn">
+            <button className="registerBtn" onClick={validateRequired}>
+              Register
+            </button>
+          </div>
         ) : (
-          <button
-            className="btn btn-primary btn-block"
-            onClick={validateRequired}
-          >
-            Continue
-          </button>
+          <div class="container-continueBtn">
+            <button className="continueBtn" onClick={validateRequired}>
+              Continue
+            </button>
+          </div>
         )}
       </div>
     );

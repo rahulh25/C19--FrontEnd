@@ -1,8 +1,7 @@
 import React from "react";
 import Stats from "./Stats";
 import Alert from "@material-ui/lab/Alert";
-import axios from "axios";
-import * as Constants from "../../constants";
+import { validateEmail } from "../../utils";
 
 class Second extends React.Component {
   constructor(props) {
@@ -24,44 +23,11 @@ class Second extends React.Component {
     const validate = () => {
       this.props.previousStep();
     };
-    const validateEmail = (e) => {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      let email = e.target.value;
-      let emailValidate = re.test(String(email).toLowerCase());
-      if (emailValidate) {
-        ///// email address is valid
-        axios
-          .get(Constants.GET_USERS)
-          .then((res) => {
-            let users = res.data.message;
-            let matchedUser = users.find((v) => v.email === email);
-            console.log(matchedUser);
-            if (matchedUser != null) {
-              ///user already found in database
-              this.setState({
-                isEmailAddress: emailValidate,
-                isEmailAlreadyExists: true,
-              });
-            } else {
-              ///user not found in database
-              this.setState({
-                isEmailAddress: emailValidate,
-                isEmailAlreadyExists: false,
-              });
-            }
-          })
-          .catch((err) => {
-            console.log(`Error while retrieving users${err}`);
-            this.setState({
-              errorMessage: `${err.response.data.message} ${err.message}`,
-            });
-          });
-      } else {
-        ///// email address entered is not valid
-        this.setState({
-          isEmailAddress: emailValidate,
-        });
-      }
+    const checkEmail = (event) => {
+      validateEmail(event.target.value).then((result) => {
+        console.log(result);
+        this.setState(result);
+      });
     };
     const updateEmailInForm = (e) => {
       this.props.update("email", e.target.value);
@@ -99,7 +65,7 @@ class Second extends React.Component {
               className="form-control"
               name="email"
               placeholder="Email"
-              onBlur={validateEmail}
+              onBlur={checkEmail}
               onChange={updateEmailInForm}
             />
             <div className="text-muted">
