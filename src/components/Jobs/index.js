@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { ErrorBanner } from '../../lib/components';
 import { useJobs } from '../../lib/api';
 import List from '@material-ui/core/List';
@@ -35,6 +35,10 @@ export const Jobs = () => {
   const classes = useStyles();
   const [currentPage, setCurrentPage] = useState(1);
   const [listings, loading, error] = useJobs();
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage, listings]);
 
   const handlePageChange = (event, page) => {
     event.preventDefault();
