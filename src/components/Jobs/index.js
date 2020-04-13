@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { ErrorBanner } from '../../lib/components';
-import { useJobs } from '../../lib/api';
+import { useJobs } from '../../lib/hooks';
 import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
 import Pagination from '@material-ui/lab/Pagination';
