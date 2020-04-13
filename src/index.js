@@ -1,20 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import Login from "./components/login.component";
-import Register from "./components/register.component";
-import Dashboard from "./components/dashboard.component";
-import ForgotPassword from "./components/forgotpassword.component";
-import Homepage from "./components/homepage.component";
-import TestComponent from "./TestComponent";
-import * as serviceWorker from "./serviceWorker";
-import { Provider } from "react-redux";
-import configureStore from "./store";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { transitions, positions, Provider as AlertProvider } from "react-alert";
-import AlertTemplate from "react-alert-template-basic";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import Login from './components/login.component';
+import Register from './components/register.component';
+import Dashboard from './components/dashboard.component';
+import ForgotPassword from './components/forgotpassword.component';
+import Homepage from './components/homepage.component';
+import TestComponent from './TestComponent';
+import { Jobs } from './components';
+import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import configureStore from './store';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { transitions, positions, Provider as AlertProvider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
 // optional cofiguration
 const options = {
   // you can also just use 'bottom center'
@@ -51,11 +52,14 @@ ReactDOM.render(
           <Route path="/forgotPassword">
             <ForgotPassword />
           </Route>
+          <Route path="/jobs">
+            <Jobs />
+          </Route>
         </Router>
       </Provider>
     </React.StrictMode>
   </AlertProvider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
