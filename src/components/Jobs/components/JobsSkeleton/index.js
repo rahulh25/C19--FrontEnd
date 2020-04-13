@@ -26,7 +26,7 @@ export const JobsSkeleton = () => {
   const emptyData = [{}, {}, {}, {}, {}];
   return (
     <>
-      {emptyData.map((item) => (
+      {emptyData.map((_item) => (
         <ListItem classes={{ root: classes.listItem }} disableGutters>
           <Card classes={{ root: classes.card }}>
             <CardHeader
