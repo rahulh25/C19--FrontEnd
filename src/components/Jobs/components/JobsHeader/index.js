@@ -21,6 +21,7 @@ export const JobsHeader = () => {
     if (e.key === 'Enter') {
       dispatch(getJobsBySearch(search));
     }
+    console.log(search);
   };
   return (
     <Paper classes={{ root: classes.paper }}>

@@ -1,15 +1,6 @@
-.jobs__layout {
-  height: 100%;
-}
-
-.jobs__content {
-  overflow-x: hidden;
-  padding: 20px;
-  min-height: 100vh;
-}
-
-.job-card__card {
-  width: 100%;
+#root {
+  background: #d41b2c;
+  height: 660px;
 }
 
 .jobs_pagination {

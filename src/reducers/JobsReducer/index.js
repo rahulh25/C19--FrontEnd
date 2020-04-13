@@ -23,7 +23,6 @@ export const jobsReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
-        loading: false,
       };
     default:
       return state;

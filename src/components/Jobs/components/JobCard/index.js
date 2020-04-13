@@ -10,19 +10,19 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   card: {
     width: '100%',
   },
   chip: {
     margin: '0 5px',
-    background: '#d41b2c',
+    backgroundColor: theme.palette.primary.main,
     color: '#ffffff',
   },
   weeklyTime: {
     marginRight: '10px',
   },
-});
+}));
 
 export const JobCard = ({ job }) => {
   const classes = useStyles();
