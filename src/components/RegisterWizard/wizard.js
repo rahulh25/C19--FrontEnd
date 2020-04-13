@@ -62,14 +62,17 @@ const Wizard = (props) => {
 
   return (
     <div className={"jumbotron wizardContainer"}>
-      <div className="signInBtn">
+      <div className="signIn">
         <div className="text-muted">Already have an account?</div>{" "}
-        <button
-          className="btn btn-success btn-block signInBtn"
-          onClick={signIn}
-        >
-          Sign In <FaUser />
-        </button>
+        <div className="container-signInBtn">
+          {" "}
+          <button
+            className="signInBtn"
+            onClick={signIn}
+          >
+            Sign In <FaUser />
+          </button>
+        </div>
       </div>
       <div className="row">
         <div className={`col-12 col-sm-6 offset-sm-3 ${styles["rsw-wrapper"]}`}>

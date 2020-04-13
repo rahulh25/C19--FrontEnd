@@ -1,5 +1,5 @@
 import React from "react";
-import "./SplashPage.css";
+import "./css/SplashPage.css";
 class SplashPage extends React.Component {
   constructor(props) {
     super(props);
