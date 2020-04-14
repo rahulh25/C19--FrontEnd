@@ -1,11 +1,14 @@
 import React from 'react';
 import './homepage.component.css';
 import Icon from '@material-ui/core/Icon';
+import Toolbar from "./Toolbar/Toolbar";
+
 
 class Homepage extends React.Component {
     render() {
         return (
             <React.Fragment>
+                <Toolbar/>
                 {/* Title */}
                 <div class="container-fluid" id="main-choice-section">
                     <h1 id="title-heading">Hire expert freelancers for any job....</h1>
