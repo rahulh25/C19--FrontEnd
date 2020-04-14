@@ -1,5 +1,5 @@
 import React from "react";
-import "./register.component.css";
+import "./css/register.component.css";
 import RegisterWizard from "./RegisterWizard/wizard";
 
 class Register extends React.Component {
@@ -8,9 +8,7 @@ class Register extends React.Component {
   }
 
   render() {
-    return (
-        <RegisterWizard />
-    );
+    return <RegisterWizard />;
   }
 }
 

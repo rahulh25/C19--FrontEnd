@@ -1,6 +1,16 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import rootReducer from "./reducers/rootReducer";
-export default function configureStore(initialState = { simpleReducer: "hi" }) {
-  return createStore(rootReducer, initialState, applyMiddleware(thunk));
-}
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers/rootReducer';
+
+const middleware = [thunk];
+const initialState = {};
+
+const configureStore = (state = initialState) => {
+  return createStore(
+    rootReducer,
+    state,
+    compose(applyMiddleware(...middleware))
+  );
+};
+
+export default configureStore;

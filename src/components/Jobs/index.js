@@ -1,55 +1,73 @@
-import React from 'react';
-import { Card, Col, Layout, List, Typography, Row, Tag } from 'antd';
-import { testJobs } from '../../lib/mock';
+import React, { useState, useLayoutEffect } from 'react';
+import { ErrorBanner } from '../../lib/components';
+import { useJobs } from '../../lib/hooks';
+import List from '@material-ui/core/List';
+import Container from '@material-ui/core/Container';
+import Pagination from '@material-ui/lab/Pagination';
+import { JobsHeader, JobCard, JobsSkeleton } from './components';
+import {
+  createMuiTheme,
+  makeStyles,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 import './styles/index.css';
-import 'antd/dist/antd.css';
 
-const { Content } = Layout;
-const { Paragraph, Text } = Typography;
+const PAGE_SIZE = 5;
+const useStyles = makeStyles({
+  pagination: {
+    justifyContent: 'center',
+  },
+  container: {
+    minHeight: '100%',
+    padding: '16px',
+  },
+});
 
-const JobCard = ({ job }) => {
-  const { title, description, postedOn, skills } = job;
-  const datePosted = new Date(postedOn);
-  return (
-    <List.Item>
-      <Card title={title} hoverable>
-        <Paragraph>{description}</Paragraph>
-        <br />
-        <List
-          grid={{ gutter: 4 }}
-          dataSource={skills}
-          renderItem={(skill) => (
-            <List.Item>
-              <Tag>{skill}</Tag>
-            </List.Item>
-          )}
-        />
-        <Text type="secondary" style={{ fontSize: '10px' }}>
-          Posted on: {datePosted.toDateString()}
-        </Text>
-      </Card>
-    </List.Item>
-  );
-};
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#d41b2c',
+    },
+  },
+});
 
 export const Jobs = () => {
+  const classes = useStyles();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [listings, loading, error] = useJobs();
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage, listings]);
+
+  const handlePageChange = (event, page) => {
+    event.preventDefault();
+    setCurrentPage(page);
+  };
+
+  const dataSource =
+    listings.length > PAGE_SIZE
+      ? [...listings].splice((currentPage - 1) * PAGE_SIZE, PAGE_SIZE)
+      : [...listings];
+
   return (
-    <Layout className="jobs__layout">
-      <Content>
-        <Row gutter={16} justify="center">
-          <Col span={12}>
-            <List
-              dataSource={testJobs}
-              renderItem={(item) => <JobCard job={item} />}
-              pagination={{
-                defaultCurrent: 1,
-                defaultPageSize: 5,
-                simple: true,
-              }}
-            />
-          </Col>
-        </Row>
-      </Content>
-    </Layout>
+    <ThemeProvider theme={theme}>
+      <Container classes={{ root: classes.container }}>
+        <ErrorBanner error={error} message={error} />
+        <List subheader={<JobsHeader />}>
+          {loading && <JobsSkeleton />}
+          {dataSource && dataSource.map((item) => <JobCard job={item} />)}
+        </List>
+        <Pagination
+          count={
+            Math.floor(listings.length / PAGE_SIZE) +
+            (listings.length % PAGE_SIZE === 0 ? 0 : 1)
+          }
+          page={currentPage}
+          onChange={handlePageChange}
+          classes={{ ul: classes.pagination }}
+        />
+      </Container>
+    </ThemeProvider>
   );
 };

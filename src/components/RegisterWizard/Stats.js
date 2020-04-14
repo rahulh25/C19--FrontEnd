@@ -21,23 +21,29 @@ class Stats extends React.Component {
       let bool = obj.hasOwnProperty(key) && obj[key] != "" && obj[key] != null;
       return bool;
     };
+    const isTermsChecked = (obj, key) => {
+      let bool = obj.hasOwnProperty(key) && obj[key] == true;
+      return bool;
+    };
     const validateRequired = () => {
       if (step == 1) {
         let result =
           form != undefined &&
           hasValue(form, "firstName") &&
           hasValue(form, "lastName") &&
-          hasValue(form, "dateofBirth") &&
-          hasValue(form, "gender");
+          hasValue(form, "dateofBirth");
         if (!result) {
           ///alert the user to input required
           alert("Please input all the required fields!");
           return;
         }
       } else if (step == 2) {
+        const { isEmailAddress, isEmailAlreadyExists } = this.props;
         let result =
           form != undefined &&
           hasValue(form, "email") &&
+          isEmailAddress &&
+          !isEmailAlreadyExists &&
           hasValue(form, "password") &&
           hasValue(form, "confirmpassword");
         if (!result) {
@@ -51,7 +57,8 @@ class Stats extends React.Component {
           hasValue(form, "type") &&
           hasValue(form, "education") &&
           hasValue(form, "skills") &&
-          hasValue(form, "portfolioLink");
+          hasValue(form, "portfolioLink") &&
+          isTermsChecked(form, "terms");
         if (!result) {
           ///alert the user to input required
           alert("Please input all the required fields!");
@@ -64,27 +71,25 @@ class Stats extends React.Component {
       <div>
         <hr />
         {step > 1 && (
-          <button
-            className="btn btn-secondary btn-block"
-            onClick={previousStep}
-          >
-            Go Back
-          </button>
+          <div className="container-backBtn">
+            <button className="backBtn" onClick={previousStep}>
+              Go Back
+            </button>
+            <br />
+          </div>
         )}
-        {step < totalSteps ? (
-          <button
-            className="btn btn-primary btn-block"
-            onClick={validateRequired}
-          >
-            Continue
-          </button>
+        {step == 3 ? (
+          <div className="container-registerBtn">
+            <button className="registerBtn" onClick={validateRequired}>
+              Register
+            </button>
+          </div>
         ) : (
-          <button
-            className="btn btn-success btn-block"
-            onClick={validateRequired}
-          >
-            Register
-          </button>
+          <div class="container-continueBtn">
+            <button className="continueBtn" onClick={validateRequired}>
+              Continue
+            </button>
+          </div>
         )}
       </div>
     );

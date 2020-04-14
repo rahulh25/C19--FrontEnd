@@ -1,5 +1,8 @@
-.jobs__layout {
-  height: 100%;
-  overflow: hidden;
-  padding: 20px;
+#root {
+  background: #d41b2c;
+  height: 660px;
+}
+
+.jobs_pagination {
+  justify-content: center;
 }

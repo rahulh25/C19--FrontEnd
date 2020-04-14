@@ -4,7 +4,7 @@ import Gender from "./Gender";
 import Stats from "./Stats";
 class First extends React.Component {
   render() {
-    const update = e => {
+    const update = (e) => {
       this.props.update(e.target.name, e.target.value);
     };
     const updateDate = (name, value) => {
@@ -47,9 +47,7 @@ class First extends React.Component {
           {" "}
           <DateOfBirth onUpdate={updateDate} />
         </div>
-        <label>
-          Gender <span className="requiredColor">*</span>
-        </label>
+        <label>Gender</label>
         <Gender onUpdate={updateGender} />
         <Stats step={1} {...this.props} />
       </div>
