@@ -20,7 +20,6 @@ const useStyles = makeStyles({
   container: {
     minHeight: '100%',
     width: '100%',
-    background: 'linear-gradient( #d41b25 660px, #ffffff 661px)',
     padding: '16px',
   },
 });
