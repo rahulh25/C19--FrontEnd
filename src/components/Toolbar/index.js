@@ -1,9 +1,19 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link as RouterLink } from 'react-router-dom';
 import './styles/index.css';
 import logo from './assets/temp_logo.png';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
 
-export const Toolbar = (props) => {
+const useStyles = makeStyles({
+  label: {
+    color: '#ffffff',
+  },
+});
+
+export const Toolbar = () => {
+  const classes = useStyles();
   const location = useLocation();
 
   const excludedPaths = new Set([
@@ -16,7 +26,6 @@ export const Toolbar = (props) => {
   return excludedPaths.has(location.pathname) ? null : (
     <header className="toolbar">
       <nav className="toolbar__navigation">
-        <div></div>
         <div className="toolbar__login">
           {' '}
           <a href="/homepage">
@@ -26,17 +35,26 @@ export const Toolbar = (props) => {
         <div className="spacer" />
         <div className="toolbar__navigation-items">
           <ul>
-            <li>
-              <a href="/login">login </a>
+            <li key="/login">
+              <Link component={RouterLink} to="/login">
+                login
+              </Link>
             </li>
-            <li>
-              <a href="/register">register </a>
+            <li key="/register">
+              <Link component={RouterLink} to="/register">
+                register
+              </Link>
             </li>
-            <form action="/jobs">
-              <button type="submit">post a job</button>
-            </form>
-            <li>
-              <a href="/"> </a>
+            <li key="/dashboard">
+              <Button
+                component={Link}
+                variant="contained"
+                to="/dashboard"
+                color="primary"
+                classes={{ label: classes.label }}
+              >
+                post a job
+              </Button>
             </li>
           </ul>
         </div>
