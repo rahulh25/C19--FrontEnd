@@ -19,6 +19,7 @@ const useStyles = makeStyles({
   },
   container: {
     minHeight: '100%',
+    width: '100%',
     padding: '16px',
   },
 });
@@ -56,7 +57,9 @@ export const Jobs = () => {
         <ErrorBanner error={error} message={error} />
         <List subheader={<JobsHeader />}>
           {loading && <JobsSkeleton />}
-          {dataSource && dataSource.map((item) => <JobCard job={item} />)}
+          {!loading &&
+            dataSource &&
+            dataSource.map((item) => <JobCard job={item} />)}
         </List>
         <Pagination
           count={
