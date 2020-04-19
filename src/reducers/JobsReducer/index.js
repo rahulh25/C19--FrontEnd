@@ -22,6 +22,7 @@ export const jobsReducer = (state = initialState, action) => {
     case JOBS_ERROR:
       return {
         ...state,
+        loading: false,
         error: action.payload,
       };
     default:

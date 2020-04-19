@@ -1,5 +1,6 @@
-import React from "react";
-import "./css/SplashPage.css";
+import React from 'react';
+import './css/SplashPage.css';
+
 class SplashPage extends React.Component {
   constructor(props) {
     super(props);
@@ -8,7 +9,7 @@ class SplashPage extends React.Component {
   render() {
     return (
       <div>
-        {" "}
+        {' '}
         <div className="bgimg">
           <div className="middle">
             <h1>
