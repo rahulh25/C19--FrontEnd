@@ -22,8 +22,8 @@
 }
 .toolbar__login img {
     height: 50px;
-    padding-right: 15px;
-    padding-left: 5px;
+    padding-right: 60px;
+    padding-left: 60px;
 }
 .spacer {
     flex: 1;
@@ -58,3 +58,7 @@
 .toolbar__navigation-items a:active {
     color: #D41B2C;
 }
+#root {
+    height: 660px;
+    background-color: #ffffff;
+  }
