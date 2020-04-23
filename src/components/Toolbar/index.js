@@ -32,6 +32,25 @@ export const Toolbar = () => {
             <img src={logo} alt="logo" />{' '}
           </a>
         </div>
+        <div className="toolbar__navigation-items">
+          <ul>
+          <li key="/login">
+              <Link component={RouterLink} to="/login">
+              Freelancer
+              </Link>
+            </li>
+            <li key="/register">
+              <Link component={RouterLink} to="/register">
+              Visualizations
+              </Link>
+            </li>
+            <li key="/jobs">
+              <Link component={RouterLink} to="/jobs">
+              Browse Jobs
+              </Link>
+            </li>
+          </ul>
+        </div>
         <div className="spacer" />
         <div className="toolbar__navigation-items">
           <ul>
@@ -47,7 +66,7 @@ export const Toolbar = () => {
             </li>
             <li key="/dashboard">
               <Button
-                component={Link}
+                component={RouterLink}
                 variant="contained"
                 to="/dashboard"
                 color="primary"
