@@ -23,6 +23,7 @@ class Third extends React.Component {
     this.state = {
       checked: "",
       value: "",
+      portfolio: null,
       education: "",
       selectedSkills: [],
     };
@@ -54,6 +55,9 @@ class Third extends React.Component {
     this.props.update("education", event.target.value);
   };
   updatePortfoliolink = (event) => {
+    this.setState({
+      portfolio: event.target.value,
+    });
     this.props.update(event.target.name, event.target.value);
   };
   render() {
@@ -165,8 +169,10 @@ class Third extends React.Component {
           <input
             required
             type="text"
+            autoComplete="portfolio"
             className="form-control"
             name="portfolioLink"
+            value={this.state.portfolio}
             placeholder="Portfolio link"
             onChange={this.updatePortfoliolink}
           />

@@ -38,14 +38,19 @@ class Stats extends React.Component {
           return;
         }
       } else if (step == 2) {
-        const { isEmailAddress, isEmailAlreadyExists } = this.props;
+        const {
+          isEmailAddress,
+          isEmailAlreadyExists,
+          isPasswordMatch,
+        } = this.props;
         let result =
           form != undefined &&
           hasValue(form, "email") &&
           isEmailAddress &&
           !isEmailAlreadyExists &&
           hasValue(form, "password") &&
-          hasValue(form, "confirmpassword");
+          hasValue(form, "confirmpassword") &&
+          isPasswordMatch;
         if (!result) {
           ///alert the user to input required
           alert("Please input all the required fields!");

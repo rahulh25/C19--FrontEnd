@@ -52,18 +52,27 @@ class Login extends React.Component {
         }
       })
       .catch((err) => {
-        console.log(err.response);
-        window.scroll(0, 0);
-        console.log(
-          `Error while sign in ${err.message},${err.response.data.message}`
-        );
-        let message = `${err.response.data.message},
+        if (!err.response) {
+          //network error
+          let message = `Server down! Network error`;
+          this.setState({
+            error: true,
+            errorMessage: message,
+          });
+        } else {
+          console.log(err.response);
+          window.scroll(0, 0);
+          console.log(
+            `Error while sign in ${err.message},${err.response.data.message}`
+          );
+          let message = `${err.response.data.message},
                      ${err.message}`;
-        this.setState({
-          error: true,
-          errorMessage: message,
-          statusCode: err.response.status,
-        });
+          this.setState({
+            error: true,
+            errorMessage: message,
+            statusCode: err.response.status,
+          });
+        }
       });
   };
   render() {
@@ -84,7 +93,8 @@ class Login extends React.Component {
                   {errorMessage}{" "}
                   {statusCode == 400 && (
                     <div>
-                      Please <a href="/forgotPassword">reset</a> your password to login!
+                      Please <a href="/forgotPassword">reset</a> your password
+                      to login!
                     </div>
                   )}
                 </div>

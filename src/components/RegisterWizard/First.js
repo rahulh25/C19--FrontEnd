@@ -3,8 +3,18 @@ import DateOfBirth from "./DateOfBirth";
 import Gender from "./Gender";
 import Stats from "./Stats";
 class First extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: null,
+      lastName: null,
+    };
+  }
   render() {
     const update = (e) => {
+      this.setState({
+        [e.target.name]: e.target.value,
+      });
       this.props.update(e.target.name, e.target.value);
     };
     const updateDate = (name, value) => {
@@ -24,6 +34,8 @@ class First extends React.Component {
         <input
           required
           type="text"
+          autoComplete="firstname"
+          value={this.state.firstName}
           className="form-control"
           name="firstName"
           placeholder="First Name"
@@ -35,8 +47,10 @@ class First extends React.Component {
         <input
           required
           type="text"
+          autoComplete="lastname"
           className="form-control"
           name="lastName"
+          value={this.state.lastName}
           placeholder="Last Name"
           onChange={update}
         />
