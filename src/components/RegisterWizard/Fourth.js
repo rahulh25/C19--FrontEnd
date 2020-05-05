@@ -1,60 +1,51 @@
 import React, { Component } from "react";
-import * as Constants from "../../constants";
-import axios from "axios";
-
+import { registerUser } from "../../actions/userRegistrationActions";
+import { connect } from "react-redux";
+import ErrorNotification from "../error";
+/*
+ * mapStateToProps
+ */
+const mapStateToProps = (state) => {
+  const { registrationReducer } = state;
+  return {
+    register: registrationReducer.register,
+    registrationMessage: registrationReducer.registrationMessage,
+    error: registrationReducer.error,
+  };
+};
+/*
+ * mapDispatchToProps
+ */
+const mapDispatchToProps = (dispatch) => ({
+  registerUser: (user) => dispatch(registerUser(user)),
+});
 class Fourth extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      registrationMessage: null,
-      errorMessage: null,
-      register: false,
-    };
-  }
   registerUser = () => {
     window.scroll(0, 0);
     const { form } = this.props;
-    console.log(form);
-    axios
-      .post(Constants.ADD_USER_API, form)
-      .then((res) => {
-        this.setState({
-          registrationMessage: res.data.message,
-          register: true,
-        });
-      })
-      .catch((err) => {
-        console.log(`Error while registering user${err}`);
-        this.setState({
-          errorMessage: `${err.response.data.message} ${err.message}`,
-          register: true,
-        });
-      });
+    this.props.registerUser(form);
   };
   componentWillMount() {
+    console.log(this.props.register, this.props.registrationMessage);
     this.registerUser();
   }
   render() {
     const { form } = this.props;
-    const { errorMessage, registrationMessage, register } = this.state;
+    const { registrationMessage, register, error } = this.props;
     return (
       <div>
-        {register == true &&
-          (errorMessage != null ? (
-            <div class="alert alert-danger" role="alert">
-              {errorMessage}
-            </div>
-          ) : (
-            <div class="alert alert-success" role="alert">
-              <h4 class="alert-heading">{registrationMessage}</h4>
-              <p>
-                Thank you for registering! A confirmation link is sent to your{" "}
-                {form.email}.
-              </p>
-            </div>
-          ))}
+        <ErrorNotification message={error} />
+        {register == true && (
+          <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">{registrationMessage}</h4>
+            <p>
+              Thank you for registering! A confirmation link is sent to your{" "}
+              {form.email}.
+            </p>
+          </div>
+        )}
       </div>
     );
   }
 }
-export default Fourth;
+export default connect(mapStateToProps, mapDispatchToProps)(Fourth);

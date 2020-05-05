@@ -1,7 +1,7 @@
-import { combineReducers } from 'redux';
-import simpleReducer from './simpleReducer';
-import { jobsReducer } from './JobsReducer';
+import { combineReducers } from "redux";
+import { jobsReducer } from "./JobsReducer";
+import { registrationReducer } from "./userRegistrationReducer";
 export default combineReducers({
-  simpleReducer,
   jobsReducer,
+  registrationReducer,
 });

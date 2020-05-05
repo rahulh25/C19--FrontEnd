@@ -13,6 +13,7 @@ class Login extends React.Component {
       form: {},
       error: false,
       errorMessage: "",
+      statusCode: "",
     };
   }
   handleEmail = (e) => {
@@ -36,7 +37,7 @@ class Login extends React.Component {
     axios
       .post(Constants.SIGNIN_USER_API, form)
       .then((res) => {
-        console.log(res.data.message);
+        console.log(res);
         if (res.data.message.hasOwnProperty("token")) {
           console.log(res.data.message);
           this.props.history.push("/dashboard", res.data.message);
@@ -46,27 +47,39 @@ class Login extends React.Component {
           this.setState({
             error: true,
             errorMessage: res.data.message,
+            statusCode: res.status,
           });
         }
       })
       .catch((err) => {
-        window.scroll(0, 0);
-        console.log(
-          `Error while sign in ${err.message},${err.response.data.message}`
-        );
-        let message = `${err.response.data.message},
+        if (!err.response) {
+          //network error
+          let message = `Server down! Network error`;
+          this.setState({
+            error: true,
+            errorMessage: message,
+          });
+        } else {
+          console.log(err.response);
+          window.scroll(0, 0);
+          console.log(
+            `Error while sign in ${err.message},${err.response.data.message}`
+          );
+          let message = `${err.response.data.message},
                      ${err.message}`;
-        this.setState({
-          error: true,
-          errorMessage: message,
-        });
+          this.setState({
+            error: true,
+            errorMessage: message,
+            statusCode: err.response.status,
+          });
+        }
       });
   };
   render() {
     const signUp = () => {
       this.props.history.push("/register");
     };
-    const { error, errorMessage } = this.state;
+    const { error, errorMessage, statusCode } = this.state;
     return (
       <div class="limiter">
         <div class="container-login100">
@@ -77,7 +90,13 @@ class Login extends React.Component {
             >
               {error && (
                 <div class="alert alert-danger" role="alert">
-                  {errorMessage}
+                  {errorMessage}{" "}
+                  {statusCode == 400 && (
+                    <div>
+                      Please <a href="/forgotPassword">reset</a> your password
+                      to login!
+                    </div>
+                  )}
                 </div>
               )}
               <span class="login100-form-title p-b-43">Login to continue</span>
@@ -145,9 +164,7 @@ class Login extends React.Component {
               </div>
             </form>
 
-            <div
-              class="login100-more"
-            ></div>
+            <div class="login100-more"></div>
           </div>
         </div>
       </div>

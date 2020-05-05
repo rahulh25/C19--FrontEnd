@@ -4,10 +4,25 @@ import { Link } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
 import { withAlert } from "react-alert";
 import "./forgotpassword.component.css";
-import { validateEmail } from "../utils";
+import { validateEmail } from "../actions/userRegistrationActions";
 import axios from "axios";
 import * as Constants from "../constants";
-
+import { connect } from "react-redux";
+import ErrorNotification from "./error";
+import SuccessNotification from "./success";
+/*
+ * mapDispatchToProps
+ */
+const mapDispatchToProps = (dispatch) => ({
+  validateEmail: (email) => dispatch(validateEmail(email)),
+});
+const mapStateToProps = (state) => {
+  const { registrationReducer } = state;
+  return {
+    isEmailExists: registrationReducer.isEmailExists,
+    isEmailValid: registrationReducer.isEmailValid,
+  };
+};
 class ForgotPassword extends React.Component {
   constructor(props) {
     super(props);
@@ -17,18 +32,13 @@ class ForgotPassword extends React.Component {
         newPassword: "",
         temporaryPassword: "",
       },
-      isEmailAddress: true,
-      isEmailAlreadyExists: false,
     };
   }
   updateEmail = (e) => {
     this.setState({ form: { ...this.state.form, email: e.target.value } });
   };
   checkEmail = (event) => {
-    validateEmail(event.target.value).then((result) => {
-      console.log(result);
-      this.setState(result);
-    });
+    this.props.validateEmail(event.target.value);
   };
   updatePasswordForm = (event) => {
     event.preventDefault();
@@ -43,7 +53,7 @@ class ForgotPassword extends React.Component {
     });
   };
   resetPassword = (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
     const { alert } = this.props;
     const { form } = this.state;
     console.log(form);
@@ -69,7 +79,6 @@ class ForgotPassword extends React.Component {
       });
   };
   sendResetRequest = (event) => {
-    const { alert } = this.props;
     event.preventDefault();
     window.scroll(0, 0);
     const { form } = this.state;
@@ -112,8 +121,6 @@ class ForgotPassword extends React.Component {
     }
   };
   render() {
-    const { isEmailAddress, isEmailAlreadyExists } = this.state;
-
     return (
       <div class="container">
         <div class="row">
@@ -148,17 +155,18 @@ class ForgotPassword extends React.Component {
                                 onChange={this.updateEmail}
                               />
                             </div>
-                            {!isEmailAddress && (
-                              <Alert severity="error">
-                                Please enter a valid email address!
-                              </Alert>
-                            )}
-                            {!isEmailAlreadyExists && (
-                              <Alert severity="error">
-                                Email address does not exists! Please{" "}
-                                <Link to="/register">Sign up</Link>
-                              </Alert>
-                            )}
+                            {this.props.isEmailExists != null &&
+                              (this.props.isEmailExists ? (
+                                <SuccessNotification message="Email address exists!" />
+                              ) : (
+                                <ErrorNotification message="Email address does not exists!" />
+                              ))}
+                            {this.props.isEmailValid != null &&
+                              (this.props.isEmailValid ? (
+                                <SuccessNotification message="Email address entered is valid!" />
+                              ) : (
+                                <ErrorNotification message="Email address entered is invalid!" />
+                              ))}{" "}
                           </div>
                           <div className="container-requestBtn">
                             <button
@@ -239,4 +247,6 @@ class ForgotPassword extends React.Component {
     );
   }
 }
-export default withAlert()(withRouter(ForgotPassword));
+export default withAlert()(
+  withRouter(connect(mapStateToProps, mapDispatchToProps)(ForgotPassword))
+);
