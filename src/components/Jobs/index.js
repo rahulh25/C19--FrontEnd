@@ -1,10 +1,11 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { ErrorBanner } from '../../lib/components';
-import { useJobs } from '../../lib/hooks';
 import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
 import Pagination from '@material-ui/lab/Pagination';
 import { JobsHeader, JobCard, JobsSkeleton } from './components';
+import { usePaginatedQuery } from 'react-query'
+import { getPaginatedJobsBySearch } from '../../lib/api'
 import { makeStyles } from '@material-ui/core/styles';
 import './styles/index.css';
 
@@ -23,40 +24,56 @@ const useStyles = makeStyles({
 export const Jobs = () => {
   const classes = useStyles();
   const [currentPage, setCurrentPage] = useState(1);
-  const [listings, loading, error] = useJobs();
+  const [query, setQuery] = useState('');
+  const { resolvedData, isFetching, status, error } = usePaginatedQuery(['jobs', query, currentPage, PAGE_SIZE], getPaginatedJobsBySearch)
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
-  }, [currentPage, listings]);
+  }, [currentPage, resolvedData]);
 
   const handlePageChange = (event, page) => {
     event.preventDefault();
     setCurrentPage(page);
   };
 
-  const dataSource =
-    listings.length > PAGE_SIZE
-      ? [...listings].splice((currentPage - 1) * PAGE_SIZE, PAGE_SIZE)
-      : [...listings];
+  if (status === "loading") {
+    return (<Container classes={{ root: classes.container }}>
+      <JobsSkeleton />
+    </Container>
+    );
+  }
 
-  return (
-    <Container classes={{ root: classes.container }}>
+  if (status === "error") {
+    return (<Container classes={{ root: classes.container }}>
       <ErrorBanner error={error} message={error} />
-      <List subheader={<JobsHeader />}>
-        {loading && <JobsSkeleton />}
-        {!loading &&
-          dataSource &&
-          dataSource.map((item) => <JobCard job={item} />)}
+      <JobsSkeleton />
+    </Container>
+    );
+  }
+
+  const jobsElement = resolvedData && resolvedData.result && resolvedData.total ? (
+    <>
+      <List subheader={<JobsHeader setQuery={setQuery} />}>
+        {isFetching && <JobsSkeleton />}
+        {!isFetching &&
+          resolvedData.result &&
+          resolvedData.result.map((item) => <JobCard key={item._id} job={item} />)}
       </List>
       <Pagination
         count={
-          Math.floor(listings.length / PAGE_SIZE) +
-          (listings.length % PAGE_SIZE === 0 ? 0 : 1)
+          Math.floor(resolvedData.total / PAGE_SIZE) +
+          (resolvedData.total % PAGE_SIZE === 0 ? 0 : 1)
         }
         page={currentPage}
         onChange={handlePageChange}
         classes={{ ul: classes.pagination }}
       />
+    </>
+  ) : null
+
+  return (
+    <Container classes={{ root: classes.container }}>
+      {jobsElement}
     </Container>
   );
 };
