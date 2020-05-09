@@ -1,11 +1,24 @@
-import React from 'react';
-import './homepage.component.css';
-import Icon from '@material-ui/core/Icon';
+import React from "react";
+import "./homepage.component.css";
+import Icon from "@material-ui/core/Icon";
+import { Toolbar } from "../components/Toolbar";
+import { withCookies } from "react-cookie";
+import { withRouter } from "react-router";
 
 class Homepage extends React.Component {
+  componentWillMount() {
+    const { cookies } = this.props;
+    const accessInfo = cookies.get("access_info");
+    if (accessInfo != undefined) {
+      ///user logged in
+      this.props.history.push("/dashboard");
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
+        <Toolbar />
         {/* Title */}
         <div class="container-fluid" id="main-choice-section">
           <h1 id="title-heading">Hire expert freelancers for any job....</h1>
@@ -26,7 +39,7 @@ class Homepage extends React.Component {
             <div class="col-sm">
               <div class="card" id="post-project">
                 <Icon
-                  style={{ fontSize: 150, margin: 'auto', paddingTop: '5%' }}
+                  style={{ fontSize: 150, margin: "auto", paddingTop: "5%" }}
                 >
                   work_outline
                 </Icon>
@@ -41,7 +54,7 @@ class Homepage extends React.Component {
             <div class="col-sm">
               <div class="card" id="choose-volunteers">
                 <Icon
-                  style={{ fontSize: 150, margin: 'auto', paddingTop: '5%' }}
+                  style={{ fontSize: 150, margin: "auto", paddingTop: "5%" }}
                 >
                   important_devices
                 </Icon>
@@ -57,7 +70,7 @@ class Homepage extends React.Component {
             <div class="col-sm">
               <div class="card" id="blog-project">
                 <Icon
-                  style={{ fontSize: 150, margin: 'auto', paddingTop: '5%' }}
+                  style={{ fontSize: 150, margin: "auto", paddingTop: "5%" }}
                 >
                   local_atm
                 </Icon>
@@ -139,4 +152,4 @@ class Homepage extends React.Component {
   }
 }
 
-export default Homepage;
+export default withCookies(withRouter(Homepage));
