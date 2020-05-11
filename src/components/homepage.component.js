@@ -1,6 +1,15 @@
 import React from 'react';
 import './homepage.component.css';
-import Icon from '@material-ui/core/Icon';
+import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
+import ImportantDevicesIcon from '@material-ui/icons/ImportantDevices';
+import LocalAtmIcon from '@material-ui/icons/LocalAtm';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import CreateIcon from '@material-ui/icons/Create';
+import PeopleIcon from '@material-ui/icons/People';
+import Volunteer from './images/volunteer.png';
+import Button from '@material-ui/core/Button';
+
+
 
 class Homepage extends React.Component {
   render() {
@@ -8,13 +17,21 @@ class Homepage extends React.Component {
       <React.Fragment>
         {/* Title */}
         <div class="container-fluid" id="main-choice-section">
-          <h1 id="title-heading">Hire expert freelancers for any job....</h1>
-          <button class="btn btn-primary" id="researcher-btn">
-            I am a COVID 19 First Responder/Researcher
-          </button>
-          <button class="btn btn-outline-secondary" id="volunteer-btn">
-            I want to Volunteer Freelance
-          </button>
+          {/* image toggle */}
+          <div id="skunks-image">
+            <img src={Volunteer} alt="researcher"></img>
+          </div>
+          {/* buttons */}
+          <div id="skunks-btn">
+              <h1 id="title-heading">Hire expert freelancers for any job....</h1>
+              <Button variant="contained" color="secondary" id="researcher-btn">
+                I am a COVID 19 First Responder/Researcher
+              </Button>
+              <Button variant="contained" color="secondary" id="volunteer-btn">
+                I want to Volunteer Freelance
+              </Button>
+          </div>
+          
         </div>
         {/* Body Title */}
         <div class="container" id="body-title">
@@ -25,11 +42,10 @@ class Homepage extends React.Component {
           <div class="row">
             <div class="col-sm">
               <div class="card" id="post-project">
-                <Icon
+                <WorkOutlineIcon
                   style={{ fontSize: 150, margin: 'auto', paddingTop: '5%' }}
                 >
-                  work_outline
-                </Icon>
+                </WorkOutlineIcon>
                 <div class="card-body">
                   <h5 class="card-title">Post Project</h5>
                   <p class="card-text">
@@ -40,11 +56,11 @@ class Homepage extends React.Component {
             </div>
             <div class="col-sm">
               <div class="card" id="choose-volunteers">
-                <Icon
+                <ImportantDevicesIcon
                   style={{ fontSize: 150, margin: 'auto', paddingTop: '5%' }}
                 >
-                  important_devices
-                </Icon>
+                  
+                </ImportantDevicesIcon>
                 <div class="card-body">
                   <h5 class="card-title">Choose Volunteer Freelancers</h5>
                   <p class="card-text">
@@ -56,11 +72,11 @@ class Homepage extends React.Component {
             </div>
             <div class="col-sm">
               <div class="card" id="blog-project">
-                <Icon
+                <LocalAtmIcon
                   style={{ fontSize: 150, margin: 'auto', paddingTop: '5%' }}
                 >
-                  local_atm
-                </Icon>
+                  
+                </LocalAtmIcon>
                 <div class="card-body">
                   <h5 class="card-title">
                     Optionally Blog about the Project when done
@@ -75,38 +91,41 @@ class Homepage extends React.Component {
         </div>
         {/* Body Title 2 */}
         <div class="container" id="body-title">
-          <h3>What's great about it???</h3>
+          <h3>Know more about it !!</h3>
         </div>
         {/* Main Body 2 */}
         <div class="container" id="body-main-2">
           <div class="row">
             <div class="col-sm">
               <div class="card" id="">
+              <BarChartIcon style={{ fontSize: 150, margin: 'auto', paddingTop: '5%', border : '2px solid black', borderRadius : '20%'}}/>
                 <div class="card-body">
-                  <h5 class="card-title">CONTENT</h5>
-                  <p class="card-text">CONTENT</p>
+                  <a href="#" id="card-title" class="card-title">VISUALIZATIONS</a>
+                  <p class="card-text">See the interactive visualizations here..</p>
                 </div>
               </div>
             </div>
             <div class="col-sm">
               <div class="card" id="">
+              <CreateIcon style={{ fontSize: 150, margin: 'auto', paddingTop: '5%', border : '2px solid black', borderRadius : '20%'}}/>
                 <div class="card-body">
-                  <h5 class="card-title">CONTENT</h5>
-                  <p class="card-text">CONTENT</p>
+                <a href="#" id="card-title" class="card-title">BLOGS</a>
+                  <p class="card-text">Get to know from our client's stories..</p>
                 </div>
               </div>
             </div>
             <div class="col-sm">
               <div class="card" id="">
+              <PeopleIcon style={{ fontSize: 150, margin: 'auto', paddingTop: '5%', border : '2px solid black', borderRadius : '20%'}}/>
                 <div class="card-body">
-                  <h5 class="card-title">CONTENT</h5>
-                  <p class="card-text">CONTENT</p>
+                <a href="#" id="card-title" class="card-title">CONTRIBUTORS</a>
+                  <p class="card-text">See who contibuted to make this happen..</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="container" id="body-main-2">
+        {/* <div class="container" id="body-main-2">
           <div class="row">
             <div class="col-sm">
               <div class="card" id="">
@@ -133,7 +152,7 @@ class Homepage extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </React.Fragment>
     );
   }
