@@ -6,16 +6,10 @@ import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Select from "@material-ui/core/Select";
-import Input from "@material-ui/core/Input";
-import Chip from "@material-ui/core/Chip";
 import Stats from "./Stats";
 import Checkbox from "@material-ui/core/Checkbox";
-
-function getStyles(skill, selectedSkill) {
-  return {
-    fontWeight: selectedSkill.indexOf(skill) === -1 ? "normal" : "bold",
-  };
-}
+import MultiValuedSelect from "../MultivaluedSelect";
+import { skillsData } from "../../constants";
 
 class Third extends React.Component {
   constructor(props) {
@@ -25,7 +19,7 @@ class Third extends React.Component {
       value: "",
       portfolio: null,
       education: "",
-      selectedSkills: [],
+      selectedData: skillsData,
     };
   }
   handleTermsandconditions = (event) => {
@@ -41,13 +35,6 @@ class Third extends React.Component {
     this.props.update("type", event.target.value);
   };
 
-  handleSkillsChange = (event) => {
-    this.setState({
-      selectedSkills: event.target.value,
-    });
-    let skillsCommaSeparated = event.target.value.toString();
-    this.props.update("skills", skillsCommaSeparated);
-  };
   handleChangeEducation = (event) => {
     this.setState({
       education: event.target.value,
@@ -61,33 +48,11 @@ class Third extends React.Component {
     this.props.update(event.target.name, event.target.value);
   };
   render() {
-    const skillsData = [
-      "Web Development",
-      "Node JS",
-      "MongoDB",
-      "PowerBI",
-      "Tableau",
-      "ASP.NET",
-      "C#",
-      "JAVA",
-      "Javascript",
-      "Python",
-    ];
-    const ITEM_HEIGHT = 48;
-    const ITEM_PADDING_TOP = 8;
-    const MenuProps = {
-      PaperProps: {
-        style: {
-          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-          width: 250,
-        },
-      },
-    };
     const validate = () => {
       this.props.previousStep();
     };
 
-    const { value, education, selectedSkills, checked } = this.state;
+    const { value, education, checked, selectedData } = this.state;
     return (
       <div>
         <div>
@@ -133,34 +98,17 @@ class Third extends React.Component {
           <label>
             Skills <span className="requiredColor">*</span>
           </label>
-          <div>
-            <Select
-              id="skills"
-              style={{ width: "-webkit-fill-available" }}
-              multiple
-              value={selectedSkills}
-              onChange={this.handleSkillsChange}
-              input={<Input id="select-multiple-chip" />}
-              renderValue={(selected) => (
-                <div style={{ display: "flex", flexWrap: "wrap" }}>
-                  {selected.map((value) => (
-                    <Chip key={value} label={value} style={{ margin: 2 }} />
-                  ))}
-                </div>
-              )}
-              MenuProps={MenuProps}
-            >
-              {skillsData.map((skill) => (
-                <MenuItem
-                  key={skill}
-                  value={skill}
-                  style={getStyles(skill, selectedSkills)}
-                >
-                  {skill}
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
+          <MultiValuedSelect
+            name="skills"
+            selectedData={selectedData}
+            data={skillsData}
+            updateForm={(key, value) => {
+              this.setState({
+                selectedData: value,
+              });
+              this.props.update(key, value.toString());
+            }}
+          />
         </div>
         <div>
           <label>

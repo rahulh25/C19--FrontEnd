@@ -16,6 +16,14 @@ class Login extends React.Component {
       statusCode: "",
     };
   }
+  componentWillMount() {
+    const { cookies } = this.props;
+    const accessInfo = cookies.get("access_info");
+    if (accessInfo != undefined) {
+      ///user logged in
+      this.props.history.push("/dashboard");
+    } 
+  }
   handleEmail = (e) => {
     const { form } = this.state;
     form["email"] = e.target.value;

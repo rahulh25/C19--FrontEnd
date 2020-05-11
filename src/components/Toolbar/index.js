@@ -43,6 +43,9 @@ export const Toolbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleProfile = () => {
+    history.push("/profile");
+  };
   const handleLogOut = () => {
     removeCookie("access_info");
     dispatch({ type: RESET_USERINFO });
@@ -105,7 +108,7 @@ export const Toolbar = () => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleProfile}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem onClick={handleLogOut}>Log out</MenuItem>
               </Menu>

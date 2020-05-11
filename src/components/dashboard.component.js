@@ -1,7 +1,7 @@
 import React from "react";
 import "./dashboard.component.css";
 import NotificationAlert from "react-notification-alert";
-import { getUserInfo } from "../actions/getUserInfoActions";
+import { getUserInfo } from "../actions/userInfoActions";
 import { withCookies } from "react-cookie";
 import { connect } from "react-redux";
 import { Toolbar } from "../components/Toolbar";
@@ -32,8 +32,8 @@ class Dashboard extends React.Component {
       ///user logged in
       getUserInfo(accessInfo.userid, accessInfo.token);
     } else {
-      ///redirect to login page
-      this.props.history.push("/login");
+      ///redirect to homepage
+      this.props.history.push("/");
     }
   }
   componentDidUpdate() {
@@ -113,7 +113,7 @@ class Dashboard extends React.Component {
                 explaining your brief here (Max file size: 25 MB).
               </p>
             </div>
-            <button id="post-btn">Post Job</button>
+            <button className="styledBtn">Post Job</button>
           </div>
         </div> */}
       </div>

@@ -17,6 +17,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { CookiesProvider } from "react-cookie";
 import "react-notification-alert/dist/animate.css";
+import Profile from "./components/profile.component";
 
 const theme = createMuiTheme({
   palette: {
@@ -41,6 +42,9 @@ ReactDOM.render(
               </Route>
               <Route path="/login">
                 <Login />
+              </Route>
+              <Route path="/profile">
+                <Profile />
               </Route>
               <Route path="/register">
                 <Register />

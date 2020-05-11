@@ -1,11 +1,28 @@
+.container {
+    height: auto !important;
+}
+
 #main-choice-section {
-    background-color: red;
-    height:500px;
+    background-color: #d41b2c;
+    height:100%;
     margin-top: 0%;
 }
 
+#skunks-btn {
+    justify-content: left;
+}
+
+#skunks-image img {
+    float: left;
+    width: 500px;
+    height: 500px;
+    margin-top: 5%;
+    margin-left: 8%;
+}
+
 #title-heading {
-    padding-top: 20%;
+    
+    padding-top: 13%;
     padding-left: 5%;
     padding-bottom: 2%;
     color: white;
@@ -14,12 +31,14 @@
 }
 
 #researcher-btn {
+    
     padding : 1%;
     border-radius: 5px;
-    margin-left: 5%;
+    
 }
 
 #volunteer-btn {
+    
     color: white;
     padding : 1%;
     border-radius: 5px;
@@ -44,10 +63,20 @@
 #post-project:hover {
     border: 1.5px solid red;    
 }
+#choose-volunteers:hover {
+    border: 1.5px solid red;    
+}
+#blog-project:hover {
+    border: 1.5px solid red;    
+}
 
 .card-body {
     text-align: center;
     min-height: 150px;
+}
+
+#card-title {
+    font-size: large;
 }
 
 #body-main-2 .card {

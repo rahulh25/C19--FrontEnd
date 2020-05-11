@@ -1,9 +1,11 @@
 import axios from "axios";
-import { GET_USER } from "../../constants";
+import { GET_USER, UPDATE_USER } from "../../constants";
 import {
   GET_USER_SUCCESS,
   GET_USER_FAILURE,
   RESET_USERINFO,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
 } from "../types";
 
 export function getUserInfo(userId, accessToken) {
@@ -23,5 +25,21 @@ export function getUserInfo(userId, accessToken) {
 export function clearUserInfo() {
   return function (dispatch) {
     dispatch({ type: RESET_USERINFO });
+  };
+}
+
+export function updateUserInfo(userId, accessToken, userData) {
+  return function (dispatch) {
+    const AuthStr = "Bearer ".concat(accessToken);
+    return axios
+      .put(`${UPDATE_USER}${userId}`, userData, {
+        headers: { Authorization: AuthStr },
+      })
+      .then((res) => {
+        dispatch({ type: UPDATE_USER_SUCCESS, payload: res.data.message });
+      })
+      .catch((err) => {
+        dispatch({ type: UPDATE_USER_FAILURE, payload: err.message });
+      });
   };
 }

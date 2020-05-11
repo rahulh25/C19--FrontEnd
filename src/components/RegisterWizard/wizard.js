@@ -11,7 +11,7 @@ import Third from "./Third";
 import Fourth from "./Fourth";
 import { FaUser } from "react-icons/fa";
 import { withRouter } from "react-router-dom";
-
+import { skillsData } from "../../constants";
 /* eslint react/prop-types: 0 */
 
 /**
@@ -20,7 +20,9 @@ import { withRouter } from "react-router-dom";
 const Wizard = (props) => {
   const [onRegister, setOnRegister] = useState(false);
   const [state, updateState] = useState({
-    form: {},
+    form: {
+      skills: skillsData,
+    },
     transitions: {
       enterRight: `${transitions.animated} ${transitions.enterRight}`,
       enterLeft: `${transitions.animated} ${transitions.enterLeft}`,
@@ -66,10 +68,7 @@ const Wizard = (props) => {
         <div className="text-muted">Already have an account?</div>{" "}
         <div className="container-signInBtn">
           {" "}
-          <button
-            className="signInBtn"
-            onClick={signIn}
-          >
+          <button className="signInBtn" onClick={signIn}>
             Sign In <FaUser />
           </button>
         </div>
