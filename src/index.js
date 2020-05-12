@@ -18,7 +18,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { CookiesProvider } from "react-cookie";
 import "react-notification-alert/dist/animate.css";
 import Profile from "./components/profile.component";
-
+import ErrorBoundary from "./components/ErrorBoundary";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -41,25 +41,40 @@ ReactDOM.render(
                 <TestComponent />
               </Route>
               <Route path="/login">
-                <Login />
+                <ErrorBoundary>
+                  <Login />
+                </ErrorBoundary>
               </Route>
               <Route path="/profile">
-                <Profile />
+                <ErrorBoundary>
+                  <Profile />
+                </ErrorBoundary>
               </Route>
               <Route path="/register">
-                <Register />
+                <ErrorBoundary>
+                  <Register />
+                </ErrorBoundary>
               </Route>
               <Route path="/dashboard">
-                <Dashboard />
+                <ErrorBoundary>
+                  {" "}
+                  <Dashboard />
+                </ErrorBoundary>
               </Route>
               <Route exact path="/">
-                <Homepage />
+                <ErrorBoundary>
+                  <Homepage />{" "}
+                </ErrorBoundary>
               </Route>
               <Route path="/forgotPassword">
-                <ForgotPassword />
+                <ErrorBoundary>
+                  <ForgotPassword />
+                </ErrorBoundary>
               </Route>
               <Route path="/jobs">
-                <Jobs />
+                <ErrorBoundary>
+                  <Jobs />
+                </ErrorBoundary>
               </Route>
             </Switch>
           </Router>
