@@ -11,7 +11,11 @@ import { FaSave } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
 import MultiValuedSelect from "./MultivaluedSelect";
 import { skillsData } from "../constants";
-
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import NotificationAlert from "react-notification-alert";
 /*
  * mapDispatchToProps
  */
@@ -27,8 +31,12 @@ const mapStateToProps = (state) => {
   return {
     firstName: getUserInfoReducer.data.firstName,
     lastName: getUserInfoReducer.data.lastName,
+    email: getUserInfoReducer.data.email,
+    dateofBirth: getUserInfoReducer.data.dateofBirth,
+    education: getUserInfoReducer.data.education,
     skills: getUserInfoReducer.data.skills,
     portfolioLink: getUserInfoReducer.data.portfolioLink,
+    type: getUserInfoReducer.data.type,
   };
 };
 class Profile extends React.Component {
@@ -38,6 +46,7 @@ class Profile extends React.Component {
       firstName: "",
       lastName: "",
       portfolio: null,
+      type: "",
       skills: [],
       editMode: false,
     };
@@ -63,13 +72,62 @@ class Profile extends React.Component {
     var postBody = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
+      email: this.props.email,
+      dateofBirth: this.props.dateofBirth,
+      education: this.props.education,
       skills: this.state.skills.toString(),
       portfolioLink: this.state.portfolio,
+      type: this.state.type,
     };
+    for (var key in postBody) {
+      if (postBody[key] === null || postBody[key] === "") {
+        this.refs.notify.notificationAlert({
+          place: "tc",
+          message: (
+            <div class="alert alert-danger" role="alert">
+              Please input all the values!
+            </div>
+          ),
+          type: "danger",
+          autoDismiss: 7,
+        });
+        return;
+      }
+    }
     const { updateUserInfo, cookies } = this.props;
     const accessInfo = cookies.get("access_info");
-    updateUserInfo(accessInfo.userid, accessInfo.token, postBody);
+    updateUserInfo(accessInfo.userid, accessInfo.token, postBody)
+      .then((message) => {
+        console.log(message);
+        this.refs.notify.notificationAlert({
+          place: "tc",
+          message: (
+            <div class="alert alert-success" role="alert">
+              User changes saved successfully!
+            </div>
+          ),
+          type: "success",
+          autoDismiss: 7,
+        });
+        this.setState({
+          editMode: false,
+        });
+      })
+      .catch((message) => {
+        console.log(message);
+        this.refs.notify.notificationAlert({
+          place: "tc",
+          message: (
+            <div class="alert alert-danger" role="alert">
+              {message}
+            </div>
+          ),
+          type: "danger",
+          autoDismiss: 7,
+        });
+      });
   }
+
   componentWillMount() {
     const { cookies, getUserInfo } = this.props;
     const accessInfo = cookies.get("access_info");
@@ -102,6 +160,7 @@ class Profile extends React.Component {
       lastName: nextProps.lastName,
       skills: nextProps.skills,
       portfolio: nextProps.portfolioLink,
+      type: nextProps.type,
     });
   }
   render() {
@@ -110,6 +169,8 @@ class Profile extends React.Component {
         <Toolbar />
         <div class="card">
           <div class="container">
+            <NotificationAlert ref="notify" />
+
             <Row>
               <Col md={8}>
                 {" "}
@@ -149,6 +210,29 @@ class Profile extends React.Component {
               placeholder="Last Name"
               onChange={this.update}
             />
+            <div>
+              <label>User type</label> <br />
+              <FormControl component="fieldset">
+                <RadioGroup
+                  aria-label="type"
+                  name="type"
+                  value={this.state.type}
+                >
+                  <FormControlLabel
+                    value="Researcher"
+                    disabled
+                    control={<Radio style={{ height: 10 }} />}
+                    label="Researcher"
+                  />
+                  <FormControlLabel
+                    disabled
+                    value="Volunteer"
+                    control={<Radio style={{ height: 10 }} />}
+                    label="Volunteer"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </div>
             <div>
               <label>Skills</label>
               <MultiValuedSelect

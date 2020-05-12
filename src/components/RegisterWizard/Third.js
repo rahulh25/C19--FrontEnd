@@ -61,7 +61,7 @@ class Third extends React.Component {
           </label>{" "}
           <FormControl component="fieldset">
             <RadioGroup
-              aria-label="gender"
+              aria-label="type"
               name="type"
               value={value}
               onChange={this.handleChange}

@@ -6,6 +6,7 @@ import {
 const initialState = {
   status: null,
   data: {},
+  userPassword: null,
   message: null,
   error: null,
 };

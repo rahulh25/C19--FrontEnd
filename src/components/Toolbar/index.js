@@ -56,7 +56,7 @@ export const Toolbar = () => {
       <nav className="toolbar__navigation">
         <div className="toolbar__login">
           {" "}
-          <a href="/homepage">
+          <a href="/">
             <img src={logo} alt="logo" />{" "}
           </a>
         </div>

@@ -22,7 +22,7 @@ class Login extends React.Component {
     if (accessInfo != undefined) {
       ///user logged in
       this.props.history.push("/dashboard");
-    } 
+    }
   }
   handleEmail = (e) => {
     const { form } = this.state;

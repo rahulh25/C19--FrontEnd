@@ -4,8 +4,6 @@ import {
   GET_USER_SUCCESS,
   GET_USER_FAILURE,
   RESET_USERINFO,
-  UPDATE_USER_SUCCESS,
-  UPDATE_USER_FAILURE,
 } from "../types";
 
 export function getUserInfo(userId, accessToken) {
@@ -29,17 +27,19 @@ export function clearUserInfo() {
 }
 
 export function updateUserInfo(userId, accessToken, userData) {
-  return function (dispatch) {
+  return function () {
     const AuthStr = "Bearer ".concat(accessToken);
     return axios
       .put(`${UPDATE_USER}${userId}`, userData, {
         headers: { Authorization: AuthStr },
       })
       .then((res) => {
-        dispatch({ type: UPDATE_USER_SUCCESS, payload: res.data.message });
+        return res.data.message;
       })
       .catch((err) => {
-        dispatch({ type: UPDATE_USER_FAILURE, payload: err.message });
+        return Promise.reject(err.message);
       });
   };
 }
+
+
