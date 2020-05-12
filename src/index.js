@@ -7,6 +7,7 @@ import Register from './components/register.component';
 import Dashboard from './components/dashboard.component';
 import ForgotPassword from './components/forgotpassword.component';
 import Homepage from './components/homepage.component';
+import Visualizations from './components/Visualizations/visualizations.component';
 import TestComponent from './TestComponent';
 import { Jobs, Toolbar } from './components';
 import * as serviceWorker from './serviceWorker';
@@ -66,6 +67,9 @@ ReactDOM.render(
               </Route>
               <Route path="/jobs">
                 <Jobs />
+              </Route>
+              <Route path="/visualizations">
+                <Visualizations/>
               </Route>
             </Switch>
           </Router>

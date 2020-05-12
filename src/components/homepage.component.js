@@ -8,6 +8,8 @@ import CreateIcon from '@material-ui/icons/Create';
 import PeopleIcon from '@material-ui/icons/People';
 import Volunteer from './images/volunteer.png';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import { Link as RouterLink } from 'react-router-dom';
 
 
 
@@ -100,7 +102,11 @@ class Homepage extends React.Component {
               <div class="card" id="">
               <BarChartIcon style={{ fontSize: 150, margin: 'auto', paddingTop: '5%', border : '2px solid black', borderRadius : '20%'}}/>
                 <div class="card-body">
-                  <a href="#" id="card-title" class="card-title">VISUALIZATIONS</a>
+                  
+                  <Link component={RouterLink} to="/visualizations" id="card-title" class="card-title">
+                  VISUALIZATIONS
+                  </Link>
+                    
                   <p class="card-text">See the interactive visualizations here..</p>
                 </div>
               </div>
