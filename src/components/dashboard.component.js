@@ -6,7 +6,8 @@ import { withCookies } from "react-cookie";
 import { connect } from "react-redux";
 import { Toolbar } from "../components/Toolbar";
 import { withRouter } from "react-router-dom";
-
+import { Row, Col } from "reactstrap";
+import ProjectsIcon from "./images/projectsIcon.png";
 const mapDispatchToProps = (dispatch) => ({
   getUserInfo: (userId, access_token) =>
     dispatch(getUserInfo(userId, access_token)),
@@ -46,76 +47,58 @@ class Dashboard extends React.Component {
       });
   }
   render() {
+    const { data } = this.props;
     return (
       <div>
         <NotificationAlert ref="errornotify" />
         <Toolbar />
-        {/* <pre>{user}</pre>
-        {error && (
-          <div class="alert alert-danger" role="alert">
-            {errorMessage}
-          </div>
-        )}
-        <div>
-          <div id="header">
-            <h2 id="main-heading">
-              Want some help with your project??? <br />
-              Post a Job...
-            </h2>
-            <p id="tag-line">
-              Contact skilled people within minutes. View profiles, ratings and
-              contact them.
-            </p>
-          </div>
-          <div id="register-form">
-            <div>
-              <strong>
-                <label for="name">Choose a name for your project</label>
-              </strong>
-              <br />
-              <input
-                id="input-field"
-                type="text"
-                name="name"
-                placeholder=" e.g. Build me a website"
-              />
-            </div>
-            <div>
-              <strong>
-                <label for="project">Tell us more about your project</label>
-              </strong>
-              <br />
-              <textarea
-                id="input-field-desc"
-                name="project"
-                placeholder=" Describe your project here"
-              ></textarea>
-            </div>
-            <div>
-              <strong>Committment hours : </strong>
-              <br />
+        <div className="outerContainer">
+          <div class="recentJobsCard">
+            <div class="container">
+              <NotificationAlert ref="notify" />
 
-              <label for="hours">
-                Choose committment hours needed per week :{" "}
-              </label>
-
-              <select id="hours">
-                <option value="less than 5">{"<"}5</option>
-                <option value="5-10">5-10</option>
-                <option value="11-20">11-20</option>
-                <option value="greater than 20">{">"}20</option>
-              </select>
+              <Row>
+                <Col md={8}>
+                  {" "}
+                  <h4>
+                    <b>Recent Jobs</b>
+                  </h4>
+                </Col>
+                <hr />
+              </Row>
+              <div className="browseJobs">
+                <div>
+                  <img src={ProjectsIcon} width="60" height="60" />
+                </div>
+                <div>Start working on jobs that meet your skills.</div>
+                <div>
+                  <button
+                    onClick={this.handleEdit}
+                    className="styledBtn"
+                    style={{ width: 200, height: 50 }}
+                  >
+                    Browse Jobs
+                  </button>
+                </div>
+              </div>
             </div>
-            <div id="upload-container">
-              <button id="upload-btn">Upload Files</button>
-              <p id="upload-para">
-                Upload any images or documents that might be helpful in
-                explaining your brief here (Max file size: 25 MB).
-              </p>
-            </div>
-            <button className="styledBtn">Post Job</button>
           </div>
-        </div> */}
+          <div
+            class="card text-white mb-3"
+            style={{
+              marginLeft: 10,
+              height: "max-content",
+              backgroundColor: "#d41b2c",
+            }}
+          >
+            <div class="card-body">
+              <h5 class="card-title">
+                Welcome back!
+                <br /> {data.firstName} {data.lastName}
+              </h5>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
