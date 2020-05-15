@@ -71,11 +71,3 @@ textarea {
 #upload-para {
     display: inline-block;
 }
-
-#post-btn {
-    margin-top: 4%;
-    height: 30px;
-    width: 100px;
-    background-color: #d41b2c;
-    color: white;
-}

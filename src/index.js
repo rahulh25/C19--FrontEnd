@@ -1,72 +1,82 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import Login from './components/login.component';
-import Register from './components/register.component';
-import Dashboard from './components/dashboard.component';
-import ForgotPassword from './components/forgotpassword.component';
-import Homepage from './components/homepage.component';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import Login from "./components/login.component";
+import Register from "./components/register.component";
+import ForgotPassword from "./components/forgotpassword.component";
+import Homepage from "./components/homepage.component";
+import Dashboard from "./components/dashboard.component";
+import TestComponent from "./TestComponent";
+import { Jobs } from "./components";
+import * as serviceWorker from "./serviceWorker";
+import { Provider } from "react-redux";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import configureStore from "./store";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { CookiesProvider } from "react-cookie";
+import "react-notification-alert/dist/animate.css";
+import Profile from "./components/profile.component";
+import ErrorBoundary from "./components/ErrorBoundary";
 import Visualizations from './components/Visualizations/visualizations.component';
-import TestComponent from './TestComponent';
-import { Jobs, Toolbar } from './components';
-import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import configureStore from './store';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { transitions, positions, Provider as AlertProvider } from 'react-alert';
-import AlertTemplate from 'react-alert-template-basic';
-// optional cofiguration
-const options = {
-  // you can also just use 'bottom center'
-  position: positions.TOP_CENTER,
-  timeout: 10000,
-  // offset: "30px",
-  // you can also just use 'scale'
-  transition: transitions.SCALE,
-};
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#d41b2c',
+      main: "#d41b2c",
     },
   },
 });
 
 ReactDOM.render(
-  <AlertProvider template={AlertTemplate} {...options}>
-    <React.StrictMode>
+  <React.StrictMode>
+    <CookiesProvider>
       <Provider store={configureStore()}>
         <ThemeProvider theme={theme}>
           <Router>
-            <Toolbar />
             <Switch>
-              <Route exact path="/">
-                <App />
-              </Route>
-              <Route path="/homepage">
-                <Homepage />
-              </Route>
+              {/* <Route exact path="/">
+                  <App />
+                </Route> */}
               <Route path="/hello">
                 <TestComponent />
               </Route>
               <Route path="/login">
-                <Login />
+                <ErrorBoundary>
+                  <Login />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/profile">
+                <ErrorBoundary>
+                  <Profile />
+                </ErrorBoundary>
               </Route>
               <Route path="/register">
-                <Register />
+                <ErrorBoundary>
+                  <Register />
+                </ErrorBoundary>
               </Route>
               <Route path="/dashboard">
-                <Dashboard />
+                <ErrorBoundary>
+                  {" "}
+                  <Dashboard />
+                </ErrorBoundary>
+              </Route>
+              <Route exact path="/">
+                <ErrorBoundary>
+                  <Homepage />{" "}
+                </ErrorBoundary>
               </Route>
               <Route path="/forgotPassword">
-                <ForgotPassword />
+                <ErrorBoundary>
+                  <ForgotPassword />
+                </ErrorBoundary>
               </Route>
               <Route path="/jobs">
-                <Jobs />
+                <ErrorBoundary>
+                  <Jobs />
+                </ErrorBoundary>
               </Route>
               <Route path="/visualizations">
                 <Visualizations/>
@@ -75,9 +85,9 @@ ReactDOM.render(
           </Router>
         </ThemeProvider>
       </Provider>
-    </React.StrictMode>
-  </AlertProvider>,
-  document.getElementById('root')
+    </CookiesProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

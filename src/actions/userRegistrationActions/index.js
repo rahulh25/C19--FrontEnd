@@ -74,3 +74,4 @@ export function validateEmail(email) {
       });
   };
 }
+

@@ -4,7 +4,7 @@ import "./css/util.css";
 import axios from "axios";
 import * as Constants from "../constants";
 import { withRouter } from "react-router";
-import { Link } from "@material-ui/core";
+import { withCookies } from "react-cookie";
 
 class Login extends React.Component {
   constructor(props) {
@@ -15,6 +15,14 @@ class Login extends React.Component {
       errorMessage: "",
       statusCode: "",
     };
+  }
+  componentWillMount() {
+    const { cookies } = this.props;
+    const accessInfo = cookies.get("access_info");
+    if (accessInfo != undefined) {
+      ///user logged in
+      this.props.history.push("/dashboard");
+    }
   }
   handleEmail = (e) => {
     const { form } = this.state;
@@ -37,13 +45,13 @@ class Login extends React.Component {
     axios
       .post(Constants.SIGNIN_USER_API, form)
       .then((res) => {
-        console.log(res);
         if (res.data.message.hasOwnProperty("token")) {
-          console.log(res.data.message);
-          this.props.history.push("/dashboard", res.data.message);
+          const { cookies } = this.props;
+          cookies.set("access_info", res.data.message);
+          console.log(cookies);
+          this.props.history.push("/dashboard");
         } else {
           ////invalid password
-          window.scroll(0, 0);
           this.setState({
             error: true,
             errorMessage: res.data.message,
@@ -61,7 +69,6 @@ class Login extends React.Component {
           });
         } else {
           console.log(err.response);
-          window.scroll(0, 0);
           console.log(
             `Error while sign in ${err.message},${err.response.data.message}`
           );
@@ -172,4 +179,4 @@ class Login extends React.Component {
   }
 }
 
-export default withRouter(Login);
+export default withCookies(withRouter(Login));

@@ -1,8 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
-import Alert from "@material-ui/lab/Alert";
-import { withAlert } from "react-alert";
+import NotificationAlert from "react-notification-alert";
 import "./forgotpassword.component.css";
 import { validateEmail } from "../actions/userRegistrationActions";
 import axios from "axios";
@@ -54,28 +52,48 @@ class ForgotPassword extends React.Component {
   };
   resetPassword = (event) => {
     event.preventDefault();
-    const { alert } = this.props;
     const { form } = this.state;
     console.log(form);
     axios
       .post(Constants.PASSWORD_RESET, form)
       .then((res) => {
-        alert.show(
-          <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">{res.data.message}</h4>
-            <a href="/login">Sign In</a> with new password!
-          </div>,
-          { type: "success" }
-        );
+        this.refs.notify.notificationAlert({
+          place: "tc",
+          message: (
+            <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">{res.data.message}</h4>
+              <a href="/login">Sign In</a> with new password!
+            </div>
+          ),
+          type: "success",
+          autoDismiss: 7,
+        });
       })
       .catch((err) => {
         console.log(`Error while password reset ${err}`);
-        alert.show(
-          <div class="alert alert-danger" role="alert">
-            {err.response.data.message} {err.message}
-          </div>,
-          { type: "error" }
-        );
+        if (!err.response) {
+          this.refs.notify.notificationAlert({
+            place: "tc",
+            message: (
+              <div class="alert alert-danger" role="alert">
+                {err.message}
+              </div>
+            ),
+            type: "danger",
+            autoDismiss: 7,
+          });
+        } else {
+          this.refs.notify.notificationAlert({
+            place: "tc",
+            message: (
+              <div class="alert alert-danger" role="alert">
+                {err.response.data.message} {err.message}
+              </div>
+            ),
+            type: "danger",
+            autoDismiss: 7,
+          });
+        }
       });
   };
   sendResetRequest = (event) => {
@@ -88,41 +106,78 @@ class ForgotPassword extends React.Component {
     axios
       .post(Constants.PASSWORD_RESET_REQUEST, postObj)
       .then((res) => {
-        alert.show(
-          <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">{res.data.message}</h4>
-            <p>
-              A temporary password has been sent to your email to reset your
-              password!
-            </p>
-          </div>,
-          { type: "success" }
-        );
+        this.refs.notify.notificationAlert({
+          place: "tc",
+          message: (
+            <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">{res.data.message}</h4>
+              <p>
+                A temporary password has been sent to your email to reset your
+                password!
+              </p>
+            </div>
+          ),
+          type: "success",
+          autoDismiss: 7,
+        });
       })
       .catch((err) => {
         console.log(`Error while password reset request ${err}`);
-        alert.show(
-          <div class="alert alert-danger" role="alert">
-            {err.response.data.message} {err.message}
-          </div>,
-          { type: "error" }
-        );
+        if (!err.response) {
+          this.refs.notify.notificationAlert({
+            place: "tc",
+            message: (
+              <div class="alert alert-danger" role="alert">
+                {err.message}
+              </div>
+            ),
+            type: "danger",
+            autoDismiss: 7,
+          });
+        } else {
+          this.refs.notify.notificationAlert({
+            place: "tc",
+            message: (
+              <div class="alert alert-danger" role="alert">
+                {err.response.data.message} {err.message}
+              </div>
+            ),
+            type: "danger",
+            autoDismiss: 7,
+          });
+        }
       });
   };
   validateConfirmPassword = (event) => {
     event.preventDefault();
-    const { alert } = this.props;
     const { form } = this.state;
     console.log(form);
     if (form["newPassword"] === event.target.value) {
-      alert.show("Passwords match!", { type: "success", timeout: 5000 });
+      this.refs.notify.notificationAlert({
+        place: "tc",
+        message: <div>Passwords match!</div>,
+        type: "success",
+        autoDismiss: 7,
+      });
     } else {
-      alert.show("Passwords do not match!", { type: "error", timeout: 5000 });
+      this.refs.notify.notificationAlert({
+        place: "tc",
+        message: (
+          <div>
+            {" "}
+            <div>Passwords do not match!</div>
+          </div>
+        ),
+        type: "danger",
+        autoDismiss: 7,
+      });
     }
   };
   render() {
     return (
       <div class="container">
+        <NotificationAlert ref="notify" />
+
         <div class="row">
           <div class="row cardRow">
             <div class="col-md-12 col-md-offset-12">
@@ -247,6 +302,6 @@ class ForgotPassword extends React.Component {
     );
   }
 }
-export default withAlert()(
-  withRouter(connect(mapStateToProps, mapDispatchToProps)(ForgotPassword))
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(ForgotPassword)
 );
