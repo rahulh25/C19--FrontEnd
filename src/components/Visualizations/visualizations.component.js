@@ -1,66 +1,134 @@
-import React, { Component, Fragment} from 'react';
-import "./visualizations.component.css";
-import GridList from '@material-ui/core/GridList';
-import data from './mock-data';
+import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import CameraIcon from '@material-ui/icons/PhotoCamera';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
+import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
+import MockData from './mock-data';
+import './visualizations.component.css';
 
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        NEU AI Skunks
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      overflow: 'hidden',
-      backgroundColor: theme.palette.background.paper,
-    },
-    gridList: {
-        marginLeft : '5px',
-        marginRight : '5px'
-    },
-    icon: {
-      color: 'rgba(255, 255, 255, 0.54)',
-    },
-    text : {
-        fontSize : 'large',
-    }
-  }));
-  
-  export default function Visualizations() {
-    const classes = useStyles();
-   
-    return (
-        <Fragment>
-            <div id="title-text">Visualizations..</div>
-            <div className={classes.root}>
-                <GridList cellHeight={180} cols={6} spacing={15}>
-                
-                {data.map((tile) => (
-                    <GridListTile key={tile.img}>
-                    <img src={tile.img} loading="lazy" alt={tile.title} />
-                    <GridListTileBar
-                        title={tile.title}
-                        subtitle={<span>by: {tile.contributor}</span>}
-                        actionIcon={
-                        <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                            <InfoIcon />
-                        </IconButton>
-                        }
-                    />
-                    </GridListTile>
-                ))}
-                </GridList>
-            </div>
-        </Fragment>
-    );
-  }
+  icon: {
+    marginRight: theme.spacing(2),
+  },
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(8, 0, 6),
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4),
+  },
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  card: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  cardMedia: {
+    paddingTop: '56.25%', // 16:9
+  },
+  cardContent: {
+    flexGrow: 1,
+  },
+  footer: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(6),
+  },
+}));
 
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-
-
-
-
+export default function Album() {
+  const classes = useStyles();
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <AppBar position="relative">
+        <Toolbar>
+          <CameraIcon className={classes.icon} />
+          <Typography variant="h6" color="inherit" noWrap>
+            Visualizations
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <main>
+        {/* Hero unit */}
+        <div className={classes.heroContent}>
+          <Container maxWidth="sm">
+            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+            Visualizations
+            </Typography>
+            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+              Learn more about the Visualizations which our members created...
+            </Typography>
+          </Container>
+        </div>
+        <Container className={classes.cardGrid} maxWidth="md">
+          {/* End hero unit */}
+          <Grid container spacing={4}>
+            {MockData.map((card) => (
+              <Grid item key={card} xs={12} sm={6} md={3}>
+                <Card className={classes.card}>
+                  <CardMedia
+                    className={classes.cardMedia}
+                    image={card.img}
+                    title="Image title"
+                  />
+                  <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                    {card.title}
+                    </Typography>
+                    <Typography>
+                     Made by : {card.contributor}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small" color="primary">
+                      VIEW
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </main>
+      {/* Footer */}
+      <footer className={classes.footer}>
+        {/* <Typography variant="h6" align="center" gutterBottom>
+          Footer
+        </Typography> */}
+        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
+          Learm more about this website on <a href="www.skunks.ai">skunks.ai</a>
+        </Typography>
+        <Copyright />
+      </footer>
+      {/* End footer */}
+    </React.Fragment>
+  );
+}
