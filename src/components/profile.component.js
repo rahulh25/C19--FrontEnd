@@ -72,7 +72,6 @@ class Profile extends React.Component {
     var postBody = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
-      password: "sss",
       email: this.props.email,
       dateofBirth: this.props.dateofBirth,
       education: this.props.education,
