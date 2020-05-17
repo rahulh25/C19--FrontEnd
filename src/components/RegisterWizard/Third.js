@@ -103,6 +103,7 @@ class Third extends React.Component {
             selectedData={selectedData}
             data={skillsData}
             updateForm={(key, value) => {
+              console.log(value.toString())
               this.setState({
                 selectedData: value,
               });

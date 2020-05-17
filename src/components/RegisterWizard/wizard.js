@@ -21,7 +21,7 @@ const Wizard = (props) => {
   const [onRegister, setOnRegister] = useState(false);
   const [state, updateState] = useState({
     form: {
-      skills: skillsData,
+      skills: skillsData.toString(),
     },
     transitions: {
       enterRight: `${transitions.animated} ${transitions.enterRight}`,
