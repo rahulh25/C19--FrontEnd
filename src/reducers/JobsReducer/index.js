@@ -1,4 +1,9 @@
-import { JOBS_ERROR, LOADED_JOBS, LOADING_JOBS } from '../../actions/types';
+import {
+  JOBS_ERROR,
+  LOADED_JOBS,
+  LOADING_JOBS,
+  NO_JOBS,
+} from "../../actions/types";
 const initialState = {
   jobs: [],
   loading: false,
@@ -14,6 +19,8 @@ export const jobsReducer = (state = initialState, action) => {
         loading: false,
         error: null,
       };
+    case NO_JOBS:
+      return initialState;
     case LOADING_JOBS:
       return {
         ...state,
