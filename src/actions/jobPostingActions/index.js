@@ -1,13 +1,20 @@
 import axios from "axios";
-import { LOADED_JOBS, LOADING_JOBS, JOBS_ERROR, NO_JOBS } from "../types";
+import {
+  LOADED_JOBS,
+  LOADING_JOBS,
+  JOBS_ERROR,
+  NO_JOBS,
+  SORT_JOBS,
+} from "../types";
 
-export const getJobs = () => async (dispatch) => {
+export const getJobs = (sortBy = "") => async (dispatch) => {
   dispatch({ type: LOADING_JOBS });
 
   try {
     const res = await axios.get("http://localhost:3000/dev/jobPosting");
     if (res.status === 200) {
       dispatch({ type: LOADED_JOBS, payload: res.data.message });
+      sortBy != "" && dispatch({ type: SORT_JOBS, payload: sortBy });
     } else {
       dispatch({ type: JOBS_ERROR, payload: res.data.message });
     }
@@ -17,7 +24,7 @@ export const getJobs = () => async (dispatch) => {
   }
 };
 
-export const getJobsBySearch = (query) => async (dispatch) => {
+export const getJobsBySearch = (query, sortBy = "") => async (dispatch) => {
   dispatch({ type: LOADING_JOBS });
   try {
     const res = await axios.get(
@@ -25,6 +32,7 @@ export const getJobsBySearch = (query) => async (dispatch) => {
     );
     if (res.status === 200) {
       dispatch({ type: LOADED_JOBS, payload: res.data.message });
+      sortBy != "" && dispatch({ type: SORT_JOBS, payload: sortBy });
     } else {
       dispatch({ type: JOBS_ERROR, payload: res.data.message });
     }
@@ -38,4 +46,8 @@ export const getJobsBySearch = (query) => async (dispatch) => {
       dispatch({ type: JOBS_ERROR, payload: error.message });
     }
   }
+};
+
+export const sortJobs = (sortBy) => async (dispatch) => {
+  dispatch({ type: SORT_JOBS, payload: sortBy });
 };

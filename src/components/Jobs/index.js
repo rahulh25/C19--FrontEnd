@@ -28,6 +28,7 @@ export const Jobs = () => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState("");
   const data = useSelector((state) => state.jobsReducer);
+  const sortBy = data.sortBy;
   const resolvedData = data.jobs;
   const isFetching = data.loading;
   const error = data.error;
@@ -40,7 +41,7 @@ export const Jobs = () => {
 
   useEffect(() => {
     // Your code here
-    dispatch(getJobs());
+    dispatch(getJobs(sortBy));
   }, []);
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -54,9 +55,9 @@ export const Jobs = () => {
     setQuery(query);
     if (query === "") {
       ////search query empty, get all jobs
-      dispatch(getJobs());
+      dispatch(getJobs(sortBy));
     } else {
-      dispatch(getJobsBySearch(query));
+      dispatch(getJobsBySearch(query, sortBy));
     }
   };
 

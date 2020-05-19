@@ -18,3 +18,5 @@ export const skillsData = [
   "Javascript",
   "Python",
 ];
+export const JOBS_LATEST = `Latest`;
+export const JOBS_OLDEST = `Oldest`;
