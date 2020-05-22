@@ -5,8 +5,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { JOBS_LATEST, JOBS_OLDEST } from "../../../../constants";
-import { useDispatch } from "react-redux";
-import { sortJobs } from "../../../../actions/jobPostingActions";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSortBy } from "../../../../actions/jobPostingActions";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
@@ -21,18 +22,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const JobsHeader = ({ setQuery, query, jobsCount }) => {
+export const JobsHeader = ({ setQuery, query, jobsCount, sortJobs }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const data = useSelector((state) => state.jobsReducer);
 
   const [search, setSearch] = useState(query);
   const [height, setHeight] = useState(0);
-  const [sortByDate, setSortByDate] = useState("Latest");
+  const [sortByDate, setSortByDate] = useState(data.sortBy);
 
   const resultRef = useRef(null);
   const handlePostedDate = (e) => {
     setSortByDate(e.target.value);
-    dispatch(sortJobs(e.target.value));
+    dispatch(updateSortBy(e.target.value));
+    sortJobs(e.target.value);
   };
   const handleSearch = (e) => {
     const search = e.target.value;
@@ -43,6 +46,9 @@ export const JobsHeader = ({ setQuery, query, jobsCount }) => {
   useEffect(() => {
     setHeight(resultRef.current.clientHeight);
   });
+  useEffect(() => {
+    setSearch(query);
+  }, [query]);
   return (
     <Paper classes={{ root: classes.paper }}>
       <TextField

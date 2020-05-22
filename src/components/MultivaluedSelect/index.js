@@ -14,7 +14,10 @@ class MultiValuedSelect extends Component {
     super(props);
     this.state = {
       data: props.data,
-      selectedData: props.selectedData,
+      selectedData:
+        typeof props.selectedData !== undefined && props.selectedData != null
+          ? props.selectedData
+          : [],
       readOnly: false,
     };
   }
@@ -26,7 +29,11 @@ class MultiValuedSelect extends Component {
   };
   componentWillReceiveProps(nextProps) {
     this.setState({
-      selectedData: nextProps.selectedData,
+      selectedData:
+        typeof nextProps.selectedData !== undefined &&
+        nextProps.selectedData != null
+          ? nextProps.selectedData
+          : [],
       data: nextProps.data,
       readOnly: nextProps.readOnly,
     });
@@ -48,7 +55,11 @@ class MultiValuedSelect extends Component {
       <div>
         <Select
           name={this.props.name}
-          style={{ width: "-webkit-fill-available" }}
+          style={{
+            width: "-webkit-fill-available",
+            border: "1px solid darkgrey",
+            borderBottom: 0,
+          }}
           multiple
           disabled={this.state.readOnly}
           value={selectedData}
@@ -63,6 +74,9 @@ class MultiValuedSelect extends Component {
           )}
           MenuProps={MenuProps}
         >
+          <MenuItem value="" disabled>
+            Select Skills
+          </MenuItem>
           {this.props.data.map((dropdown) => (
             <MenuItem
               key={dropdown}
