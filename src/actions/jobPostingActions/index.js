@@ -5,12 +5,12 @@ import {
   JOBS_ERROR,
   UPDATE_SORTBY,
 } from "../types";
-
+import { GET_JOBS } from "../../constants";
 export const getJobs = () => async (dispatch) => {
   dispatch({ type: LOADING_JOBS });
 
   try {
-    const res = await axios.get("http://localhost:3000/dev/jobPosting");
+    const res = await axios.get(`${GET_JOBS}`);
     if (res.status === 200) {
       dispatch({ type: LOADED_JOBS, payload: res.data.message });
     } else {
@@ -24,7 +24,7 @@ export const getJobs = () => async (dispatch) => {
 
 export const getJobsBySearch = (query) => {
   return axios
-    .get(`http://localhost:3000/dev/jobPosting/searchjobs/${query}`)
+    .get(`${GET_JOBS}/searchjobs/${query}`)
     .then((res) => {
       return res.data.message;
     })
