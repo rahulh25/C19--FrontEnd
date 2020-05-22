@@ -9,9 +9,6 @@ RUN npm install && mkdir /react-ui && mv ./node_modules ./react-ui
 WORKDIR /react-ui
 
 COPY . .
-ARG REACT_APP_API_URL
-
-ENV REACT_APP_API_URL=$REACT_APP_API_URL
 # Build the project and copy the files
 RUN npm run build
 
@@ -20,7 +17,9 @@ FROM nginx
 
 #!/bin/sh
 COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
+ARG REACT_APP_API_URL
 
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
 ## Remove default nginx index page
 RUN rm -rf /usr/share/nginx/html/*
 

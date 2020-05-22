@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import App from './App';
+import SplashPage from '../src/components/SplashPage';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
+test('renders Splash Page', () => {
+  const { getByText } = render(<SplashPage />);
+  const linkElement = getByText(/NEU AI Skunkworks COVID-19/i);
   expect(linkElement).toBeInTheDocument();
 });
