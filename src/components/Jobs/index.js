@@ -14,7 +14,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import MultiValuedSelect from "../MultivaluedSelect";
 import { skillsData, JOBS_OLDEST, JOBS_LATEST } from "../../constants";
-//import { useCookies } from "react-cookie";
 import { MdClear } from "react-icons/md";
 const PAGE_SIZE = 5;
 const useStyles = makeStyles({
@@ -33,7 +32,6 @@ const useStyles = makeStyles({
 });
 
 export const Jobs = (props) => {
-  //const [cookies] = useCookies(["access_info"]);
   const classes = useStyles();
   const [currentPage, setCurrentPage] = useState(1);
   const [jobs, setJobs] = useState([]);
@@ -58,12 +56,7 @@ export const Jobs = (props) => {
     }
   }, [error]);
   useEffect(() => {
-    // Your code here
-    // let accessInfo = cookies.access_info;
-    // if (accessInfo === undefined) {
-    ///user not logged in
     dispatch(getJobs());
-    //}
   }, []);
   useEffect(() => {
     // user logged in
@@ -73,7 +66,6 @@ export const Jobs = (props) => {
   }, [userData]);
   useEffect(() => {
     console.log(userData, jobsStore);
-    //if (userData.status === "ok" && jobsStore.length > 0)
     applyFilters(jobsStore, userData.data.skills, sortBy);
   }, [jobsStore, userData]);
 
@@ -106,13 +98,12 @@ export const Jobs = (props) => {
     setJobs(filteredBySkills);
   };
   const filterBySkills = (jobsParam, skills) => {
-    if (skills !== undefined) {
-      if (skills.length == 0) return jobsParam;
-      return jobsParam.filter((j) => {
-        const found = j.skills.some((r) => skills.includes(r));
-        return found;
-      });
-    }
+    if (skills === undefined) return jobsParam;
+    if (skills.length == 0) return jobsParam;
+    return jobsParam.filter((j) => {
+      const found = j.skills.some((r) => skills.includes(r));
+      return found;
+    });
   };
 
   const handleSearchQuery = (query) => {
