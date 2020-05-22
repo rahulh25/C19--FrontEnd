@@ -16,5 +16,11 @@ export const skillsData = [
   "C#",
   "JAVA",
   "Javascript",
+  "haskell",
+  "sql",
+  "idris",
+  "design",
   "Python",
 ];
+export const JOBS_LATEST = `Latest`;
+export const JOBS_OLDEST = `Oldest`;

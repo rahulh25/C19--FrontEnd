@@ -25,6 +25,7 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.handleBrowseJobs = this.handleBrowseJobs.bind(this);
   }
   componentWillMount() {
     const { cookies, getUserInfo } = this.props;
@@ -45,6 +46,9 @@ class Dashboard extends React.Component {
         type: "danger",
         autoDismiss: 7,
       });
+  }
+  handleBrowseJobs() {
+    this.props.history.push("/jobs");
   }
   render() {
     const { data } = this.props;
@@ -73,7 +77,7 @@ class Dashboard extends React.Component {
                 <div>Start working on jobs that meet your skills.</div>
                 <div>
                   <button
-                    onClick={this.handleEdit}
+                    onClick={this.handleBrowseJobs}
                     className="styledBtn"
                     style={{ width: 200, height: 50 }}
                   >

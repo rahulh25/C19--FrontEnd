@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, Link as RouterLink } from "react-router-dom";
 import "./styles/index.css";
 import logo from "./assets/temp_logo.png";
@@ -14,7 +14,7 @@ import { useCookies } from "react-cookie";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { RESET_USERINFO } from "../../actions/types";
-
+import { getUserInfo } from "../../actions/userInfoActions";
 const useStyles = makeStyles({
   label: {
     color: "#ffffff",
@@ -39,6 +39,14 @@ export const Toolbar = () => {
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  useEffect(() => {
+    // Your code here
+    let accessInfo = cookies.access_info;
+    if (accessInfo != undefined) {
+      ///user logged in
+      dispatch(getUserInfo(accessInfo.userid, accessInfo.token));
+    }
+  }, []);
 
   const handleClose = () => {
     setAnchorEl(null);

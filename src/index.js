@@ -19,7 +19,7 @@ import { CookiesProvider } from "react-cookie";
 import "react-notification-alert/dist/animate.css";
 import Profile from "./components/profile.component";
 import ErrorBoundary from "./components/ErrorBoundary";
-import Visualizations from './components/Visualizations/visualizations.component';
+import Visualizations from "./components/Visualizations/visualizations.component";
 
 const theme = createMuiTheme({
   palette: {
@@ -79,7 +79,9 @@ ReactDOM.render(
                 </ErrorBoundary>
               </Route>
               <Route path="/visualizations">
-                <Visualizations/>
+                <ErrorBoundary>
+                  <Visualizations />
+                </ErrorBoundary>
               </Route>
             </Switch>
           </Router>
