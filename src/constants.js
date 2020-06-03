@@ -1,6 +1,6 @@
-export const API_URL = 'http://localhost:3000/dev/';
-// export const API_URL =
-//   'http://a64ab8a727aa9447baecb857aca27bec-1035675610.us-east-1.elb.amazonaws.com:3000/dev/';
+// export const API_URL = 'http://localhost:3000/dev/';
+export const API_URL =
+  'http://a64ab8a727aa9447baecb857aca27bec-1035675610.us-east-1.elb.amazonaws.com:3000/dev/';
 export const ADD_USER_API = `${API_URL}user/registration/`;
 export const GET_USERS = `${API_URL}user/`;
 export const SIGNIN_USER_API = `${API_URL}user/login`;
