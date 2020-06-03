@@ -1,21 +1,21 @@
-import React from "react";
-import { withCookies } from "react-cookie";
-import { connect } from "react-redux";
-import { Toolbar } from "../components/Toolbar";
-import { getUserInfo, updateUserInfo } from "../actions/userInfoActions";
-import { withRouter } from "react-router-dom";
-import "./profile.component.css";
-import { Row, Col } from "reactstrap";
-import { FaUserEdit } from "react-icons/fa";
-import { FaSave } from "react-icons/fa";
-import { GiCancel } from "react-icons/gi";
-import MultiValuedSelect from "./MultivaluedSelect";
-import { skillsData } from "../constants";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import NotificationAlert from "react-notification-alert";
+import React from 'react';
+import { withCookies } from 'react-cookie';
+import { connect } from 'react-redux';
+import { Toolbar } from '../components/Toolbar';
+import { getUserInfo, updateUserInfo } from '../actions/userInfoActions';
+import { withRouter } from 'react-router-dom';
+import './profile.component.css';
+import { Row, Col } from 'reactstrap';
+import { FaUserEdit } from 'react-icons/fa';
+import { FaSave } from 'react-icons/fa';
+import { GiCancel } from 'react-icons/gi';
+import MultiValuedSelect from './MultiValuedSelect';
+import { skillsData } from '../constants';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import NotificationAlert from 'react-notification-alert';
 /*
  * mapDispatchToProps
  */
@@ -43,10 +43,10 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
+      firstName: '',
+      lastName: '',
       portfolio: null,
-      type: "",
+      type: '',
       skills: [],
       editMode: false,
     };
@@ -56,7 +56,7 @@ class Profile extends React.Component {
     this.handleSave = this.handleSave.bind(this);
   }
   handleCancel() {
-    if (window.confirm("Are you sure you wish to cancel the changes?")) {
+    if (window.confirm('Are you sure you wish to cancel the changes?')) {
       ///reset data and disable edit mode
       this.setState({
         firstName: this.props.firstName,
@@ -80,33 +80,33 @@ class Profile extends React.Component {
       type: this.state.type,
     };
     for (var key in postBody) {
-      if (postBody[key] === null || postBody[key] === "") {
+      if (postBody[key] === null || postBody[key] === '') {
         this.refs.notify.notificationAlert({
-          place: "tc",
+          place: 'tc',
           message: (
             <div class="alert alert-danger" role="alert">
               Please input all the values!
             </div>
           ),
-          type: "danger",
+          type: 'danger',
           autoDismiss: 7,
         });
         return;
       }
     }
     const { updateUserInfo, cookies } = this.props;
-    const accessInfo = cookies.get("access_info");
+    const accessInfo = cookies.get('access_info');
     updateUserInfo(accessInfo.userid, accessInfo.token, postBody)
       .then((message) => {
         console.log(message);
         this.refs.notify.notificationAlert({
-          place: "tc",
+          place: 'tc',
           message: (
             <div class="alert alert-success" role="alert">
               User changes saved successfully!
             </div>
           ),
-          type: "success",
+          type: 'success',
           autoDismiss: 7,
         });
         this.setState({
@@ -116,13 +116,13 @@ class Profile extends React.Component {
       .catch((message) => {
         console.log(message);
         this.refs.notify.notificationAlert({
-          place: "tc",
+          place: 'tc',
           message: (
             <div class="alert alert-danger" role="alert">
               {message}
             </div>
           ),
-          type: "danger",
+          type: 'danger',
           autoDismiss: 7,
         });
       });
@@ -130,13 +130,13 @@ class Profile extends React.Component {
 
   componentWillMount() {
     const { cookies, getUserInfo } = this.props;
-    const accessInfo = cookies.get("access_info");
+    const accessInfo = cookies.get('access_info');
     if (accessInfo != undefined) {
       ///user logged in
       getUserInfo(accessInfo.userid, accessInfo.token);
     } else {
       ///redirect to login page
-      this.props.history.push("/");
+      this.props.history.push('/');
     }
   }
   handleEdit() {
@@ -173,7 +173,7 @@ class Profile extends React.Component {
 
             <Row>
               <Col md={8}>
-                {" "}
+                {' '}
                 <h4>
                   <b>Profile</b>
                 </h4>

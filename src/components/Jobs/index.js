@@ -1,18 +1,13 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { usePaginatedQuery } from 'react-query';
-import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
+import List from '@material-ui/core/List';
 import Pagination from '@material-ui/lab/Pagination';
-import { ErrorBanner } from '../../lib/components';
-import {
-  MultivaluedSelect,
-  JobsHeader,
-  JobCard,
-  JobsSkeleton,
-} from './components';
-import { getPaginatedJobsBySearch } from '../../lib/api';
 import { makeStyles } from '@material-ui/core/styles';
-import './styles/index.css';
+import { ErrorBanner } from '../../lib/components';
+import { Toolbar } from '../../components';
+import { JobsFilterBox, JobsHeader, JobCard, JobsSkeleton } from './components';
+import { getPaginatedJobsBySearch } from '../../lib/api';
 import { JOBS_LATEST } from '../../constants';
 
 const PAGE_SIZE = 5;
@@ -27,6 +22,13 @@ const useStyles = makeStyles({
     minHeight: '100%',
     width: '100%',
     padding: '16px',
+  },
+  filterBox: {
+    width: '30%',
+    marginRight: '20px',
+  },
+  pane: {
+    display: 'flex',
   },
 });
 
@@ -71,7 +73,7 @@ export const Jobs = () => {
   if (status === 'error') {
     return (
       <Container classes={{ root: classes.container }}>
-        <ErrorBanner error={error} message={error} />
+        <ErrorBanner error={error} message={error.message} />
         <JobsSkeleton />
       </Container>
     );
@@ -85,7 +87,7 @@ export const Jobs = () => {
   ) : null;
 
   const jobsElement =
-    resolvedData && resolvedData.result && resolvedData ? (
+    resolvedData && resolvedData.result ? (
       <>
         <List
           classes={{ root: classes.list }}
@@ -108,22 +110,31 @@ export const Jobs = () => {
               <JobCard key={item._id} job={item} />
             ))}
         </List>
-        <Pagination
-          count={
-            Math.floor(resolvedData.total / PAGE_SIZE) +
-            (resolvedData.total % PAGE_SIZE === 0 ? 0 : 1)
-          }
-          page={currentPage}
-          onChange={handlePageChange}
-          classes={{ ul: classes.pagination }}
-        />
       </>
+    ) : null;
+
+  const paginationElement =
+    resolvedData && resolvedData.result ? (
+      <Pagination
+        count={
+          Math.floor(resolvedData.total / PAGE_SIZE) +
+          (resolvedData.total % PAGE_SIZE === 0 ? 0 : 1)
+        }
+        page={currentPage}
+        onChange={handlePageChange}
+        classes={{ ul: classes.pagination }}
+      />
     ) : null;
 
   return (
     <Container classes={{ root: classes.container }}>
-      {noDataErrorElement}
-      {jobsElement}
+      {/* <Toolbar /> */}
+      <div className={classes.pane}>
+        {noDataErrorElement}
+        <JobsFilterBox setQuery={setQuery} />
+        {jobsElement}
+      </div>
+      {paginationElement}
     </Container>
   );
 };

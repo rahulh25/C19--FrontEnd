@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import Input from "@material-ui/core/Input";
-import Chip from "@material-ui/core/Chip";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import React, { Component } from 'react';
+import Input from '@material-ui/core/Input';
+import Chip from '@material-ui/core/Chip';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 function getStyles(dropdown, data) {
   return {
-    fontWeight: data.indexOf(dropdown) === -1 ? "normal" : "bold",
+    fontWeight: data.indexOf(dropdown) === -1 ? 'normal' : 'bold',
   };
 }
 class MultiValuedSelect extends Component {
@@ -56,8 +56,8 @@ class MultiValuedSelect extends Component {
         <Select
           name={this.props.name}
           style={{
-            width: "-webkit-fill-available",
-            border: "1px solid darkgrey",
+            width: '-webkit-fill-available',
+            border: '1px solid darkgrey',
             borderBottom: 0,
           }}
           multiple
@@ -66,7 +66,7 @@ class MultiValuedSelect extends Component {
           onChange={this.handleChange}
           input={<Input id="select-multiple-chip" />}
           renderValue={(selected) => (
-            <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               {selected.map((value) => (
                 <Chip key={value} label={value} style={{ margin: 2 }} />
               ))}

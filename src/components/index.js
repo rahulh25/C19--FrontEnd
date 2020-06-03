@@ -1,3 +1,3 @@
 export * from './Jobs';
 export * from './Toolbar';
-export * from './MultivaluedSelect';
+export { default as MultiValuedSelect } from './MultiValuedSelect';

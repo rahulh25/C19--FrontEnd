@@ -1,24 +1,24 @@
-import React from "react";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Select from "@material-ui/core/Select";
-import Stats from "./Stats";
-import Checkbox from "@material-ui/core/Checkbox";
-import MultiValuedSelect from "../MultivaluedSelect";
-import { skillsData } from "../../constants";
+import React from 'react';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Select from '@material-ui/core/Select';
+import Stats from './Stats';
+import Checkbox from '@material-ui/core/Checkbox';
+import MultiValuedSelect from '../MultiValuedSelect';
+import { skillsData } from '../../constants';
 
 class Third extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: "",
-      value: "",
+      checked: '',
+      value: '',
       portfolio: null,
-      education: "",
+      education: '',
       selectedData: skillsData,
     };
   }
@@ -26,20 +26,20 @@ class Third extends React.Component {
     this.setState({
       checked: event.target.checked,
     });
-    this.props.update("terms", event.target.checked);
+    this.props.update('terms', event.target.checked);
   };
   handleChange = (event) => {
     this.setState({
       value: event.target.value,
     });
-    this.props.update("type", event.target.value);
+    this.props.update('type', event.target.value);
   };
 
   handleChangeEducation = (event) => {
     this.setState({
       education: event.target.value,
     });
-    this.props.update("education", event.target.value);
+    this.props.update('education', event.target.value);
   };
   updatePortfoliolink = (event) => {
     this.setState({
@@ -58,7 +58,7 @@ class Third extends React.Component {
         <div>
           <label>
             User type <span className="requiredColor">*</span>
-          </label>{" "}
+          </label>{' '}
           <FormControl component="fieldset">
             <RadioGroup
               aria-label="type"
@@ -103,7 +103,7 @@ class Third extends React.Component {
             selectedData={selectedData}
             data={skillsData}
             updateForm={(key, value) => {
-              console.log(value.toString())
+              console.log(value.toString());
               this.setState({
                 selectedData: value,
               });
@@ -131,7 +131,7 @@ class Third extends React.Component {
           checked={checked}
           onChange={this.handleTermsandconditions}
           size="small"
-          inputProps={{ "aria-label": "checkbox with small size" }}
+          inputProps={{ 'aria-label': 'checkbox with small size' }}
         />
         <label>
           <a
