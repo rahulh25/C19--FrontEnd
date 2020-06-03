@@ -128,7 +128,7 @@ export const Jobs = () => {
 
   return (
     <Container classes={{ root: classes.container }}>
-      {/* <Toolbar /> */}
+      <Toolbar />
       <div className={classes.pane}>
         {noDataErrorElement}
         <JobsFilterBox setQuery={setQuery} />
