@@ -1,13 +1,11 @@
 import React from 'react';
-import './styles/index.css';
-import NotificationAlert from 'react-notification-alert';
-import { getUserInfo } from '../../actions/userInfoActions';
-import { withCookies } from 'react-cookie';
 import { connect } from 'react-redux';
-import { Toolbar } from '../Toolbar';
 import { withRouter } from 'react-router-dom';
-import { Row, Col } from 'reactstrap';
-import ProjectsIcon from './assets/projectsIcon.png';
+import { withCookies } from 'react-cookie';
+import NotificationAlert from 'react-notification-alert';
+import { RecentJobs } from './components';
+import { getUserInfo } from '../../actions/userInfoActions';
+import { Toolbar } from '../Toolbar';
 import './styles/index.css';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -29,7 +27,6 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.handleBrowseJobs = this.handleBrowseJobs.bind(this);
   }
   componentWillMount() {
     const { cookies, getUserInfo } = this.props;
@@ -51,9 +48,7 @@ class Dashboard extends React.Component {
         autoDismiss: 7,
       });
   }
-  handleBrowseJobs() {
-    this.props.history.push('/jobs');
-  }
+
   render() {
     const { data } = this.props;
     return (
@@ -61,36 +56,7 @@ class Dashboard extends React.Component {
         <NotificationAlert ref="errornotify" />
         <Toolbar />
         <div className="outerContainer">
-          <div class="recentJobsCard">
-            <div class="container">
-              <NotificationAlert ref="notify" />
-
-              <Row>
-                <Col md={8}>
-                  {' '}
-                  <h4>
-                    <b>Recent Jobs</b>
-                  </h4>
-                </Col>
-                <hr />
-              </Row>
-              <div className="browseJobs">
-                <div>
-                  <img src={ProjectsIcon} width="60" height="60" />
-                </div>
-                <div>Start working on jobs that meet your skills.</div>
-                <div>
-                  <button
-                    onClick={this.handleBrowseJobs}
-                    className="styledBtn"
-                    style={{ width: 200, height: 50 }}
-                  >
-                    Browse Jobs
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <RecentJobs viewer={data} />
           <div
             class="card text-white mb-3"
             style={{
