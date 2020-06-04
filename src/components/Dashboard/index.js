@@ -1,17 +1,20 @@
-import React from "react";
-import "./dashboard.component.css";
-import NotificationAlert from "react-notification-alert";
-import { getUserInfo } from "../actions/userInfoActions";
-import { withCookies } from "react-cookie";
-import { connect } from "react-redux";
-import { Toolbar } from "../components/Toolbar";
-import { withRouter } from "react-router-dom";
-import { Row, Col } from "reactstrap";
-import ProjectsIcon from "./images/projectsIcon.png";
+import React from 'react';
+import './styles/index.css';
+import NotificationAlert from 'react-notification-alert';
+import { getUserInfo } from '../../actions/userInfoActions';
+import { withCookies } from 'react-cookie';
+import { connect } from 'react-redux';
+import { Toolbar } from '../Toolbar';
+import { withRouter } from 'react-router-dom';
+import { Row, Col } from 'reactstrap';
+import ProjectsIcon from './assets/projectsIcon.png';
+import './styles/index.css';
+
 const mapDispatchToProps = (dispatch) => ({
   getUserInfo: (userId, access_token) =>
     dispatch(getUserInfo(userId, access_token)),
 });
+
 const mapStateToProps = (state) => {
   const { getUserInfoReducer } = state;
   return {
@@ -21,6 +24,7 @@ const mapStateToProps = (state) => {
     error: getUserInfoReducer.error,
   };
 };
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -29,26 +33,26 @@ class Dashboard extends React.Component {
   }
   componentWillMount() {
     const { cookies, getUserInfo } = this.props;
-    const accessInfo = cookies.get("access_info");
+    const accessInfo = cookies.get('access_info');
     if (accessInfo != undefined) {
       ///user logged in
       getUserInfo(accessInfo.userid, accessInfo.token);
     } else {
       ///redirect to homepage
-      this.props.history.push("/");
+      this.props.history.push('/');
     }
   }
   componentDidUpdate() {
-    this.props.status === "error" &&
+    this.props.status === 'error' &&
       this.refs.errornotify.notificationAlert({
-        place: "tc",
+        place: 'tc',
         message: <div>{this.props.error}</div>,
-        type: "danger",
+        type: 'danger',
         autoDismiss: 7,
       });
   }
   handleBrowseJobs() {
-    this.props.history.push("/jobs");
+    this.props.history.push('/jobs');
   }
   render() {
     const { data } = this.props;
@@ -63,7 +67,7 @@ class Dashboard extends React.Component {
 
               <Row>
                 <Col md={8}>
-                  {" "}
+                  {' '}
                   <h4>
                     <b>Recent Jobs</b>
                   </h4>
@@ -91,8 +95,8 @@ class Dashboard extends React.Component {
             class="card text-white mb-3"
             style={{
               marginLeft: 10,
-              height: "max-content",
-              backgroundColor: "#d41b2c",
+              height: 'max-content',
+              backgroundColor: '#d41b2c',
             }}
           >
             <div class="card-body">

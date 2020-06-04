@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import Login from './components/login.component';
 import Register from './components/register.component';
 import ForgotPassword from './components/forgotpassword.component';
 import Homepage from './components/homepage.component';
-import Dashboard from './components/dashboard.component';
 import TestComponent from './TestComponent';
-import { Jobs } from './components';
+import { Jobs, Dashboard } from './components';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
