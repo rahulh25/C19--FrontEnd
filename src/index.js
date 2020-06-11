@@ -6,7 +6,7 @@ import Register from './components/register.component';
 import ForgotPassword from './components/forgotpassword.component';
 import Homepage from './components/homepage.component';
 import TestComponent from './TestComponent';
-import { Jobs, Dashboard } from './components';
+import { Jobs, Footer, Dashboard } from './components';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -81,6 +81,7 @@ ReactDOM.render(
                 </ErrorBoundary>
               </Route>
             </Switch>
+            <Footer />
           </Router>
         </ThemeProvider>
       </Provider>
