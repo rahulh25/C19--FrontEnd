@@ -48,14 +48,23 @@ export const JobCard = ({ job }) => {
             {weeklycommitment} hrs/wk
           </Typography>
           <LabelIcon />
-          {skills.map((skill) => (
+          {typeof skills === 'array' ? (
+            skills.map((skill) => (
+              <Chip
+                classes={{ root: classes.chip }}
+                key={`skill-${skill}`}
+                size="small"
+                label={skill}
+              />
+            ))
+          ) : (
             <Chip
               classes={{ root: classes.chip }}
-              key={`skill-${skill}`}
+              key={`skill-${skills}`}
               size="small"
-              label={skill}
+              label={skills}
             />
-          ))}
+          )}
         </CardContent>
       </Card>
     </ListItem>

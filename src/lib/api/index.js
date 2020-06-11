@@ -1,1 +1,2 @@
-export * from './getPaginatedJobsBySearch'
+export * from './getPaginatedJobsBySearch';
+export * from './postJob';
