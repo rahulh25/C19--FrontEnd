@@ -26,7 +26,12 @@ const mapStateToProps = (state) => {
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      dialogOpen: false,
+    };
+
+    this.handleDialogClose = this.handleDialogClose.bind(this);
+    this.handleDialogOpen = this.handleDialogOpen.bind(this);
   }
   componentWillMount() {
     const { cookies, getUserInfo } = this.props;
@@ -49,14 +54,28 @@ class Dashboard extends React.Component {
       });
   }
 
+  handleDialogClose() {
+    this.setState({ dialogOpen: false });
+  }
+
+  handleDialogOpen() {
+    this.setState({ dialogOpen: true });
+  }
+
   render() {
     const { data } = this.props;
+    const { dialogOpen } = this.state;
     return (
       <div>
         <NotificationAlert ref="errornotify" />
         <Toolbar />
         <div className="outerContainer">
-          <RecentJobs viewer={data} />
+          <RecentJobs
+            viewer={data}
+            dialogOpen={dialogOpen}
+            handleDialogClose={this.handleDialogClose}
+            handleDialogOpen={this.handleDialogOpen}
+          />
           <div
             class="card text-white mb-3"
             style={{

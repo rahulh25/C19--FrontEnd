@@ -3,10 +3,11 @@ import { Row, Col } from 'reactstrap';
 import { Link as RouterLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import { PostJobsDialog } from '../../components';
 import ProjectsIcon from '../../assets/projectsIcon.png';
 
 const useStyles = makeStyles({
-  jobsLink: {
+  callToAction: {
     width: '200px',
     height: '50px',
   },
@@ -22,8 +23,51 @@ const useStyles = makeStyles({
   },
 });
 
-export const RecentJobs = ({ viewer }) => {
+export const RecentJobs = ({
+  viewer,
+  dialogOpen,
+  handleDialogClose,
+  handleDialogOpen,
+}) => {
+  console.log(viewer);
   const classes = useStyles();
+
+  const volunteerCallToAction = (
+    <Button
+      component={RouterLink}
+      variant="contained"
+      to="/jobs"
+      color="primary"
+      classes={{ root: classes.callToAction }}
+    >
+      Browse Jobs
+    </Button>
+  );
+
+  const researcherCallToAction = (
+    <Button
+      onClick={handleDialogOpen}
+      variant="contained"
+      color="primary"
+      classes={{ root: classes.callToAction }}
+    >
+      Post Jobs
+    </Button>
+  );
+
+  const jobsCallToActionElement =
+    viewer && viewer.type === 'Volunteer'
+      ? volunteerCallToAction
+      : researcherCallToAction;
+
+  const postJobsModalElement =
+    viewer && viewer.type === 'Researcher' ? (
+      <PostJobsDialog
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        viewerId={viewer._id}
+      />
+    ) : null;
 
   return (
     <div className={classes.recentJobs}>
@@ -42,17 +86,8 @@ export const RecentJobs = ({ viewer }) => {
             <img alt="project-icon" src={ProjectsIcon} width="60" height="60" />
           </div>
           <div>Start working on jobs that meet your skills.</div>
-          <div>
-            <Button
-              component={RouterLink}
-              variant="contained"
-              to="/jobs"
-              color="primary"
-              classes={{ root: classes.jobsLink }}
-            >
-              Browse Jobs
-            </Button>
-          </div>
+          {jobsCallToActionElement}
+          {postJobsModalElement}
         </div>
       </div>
     </div>

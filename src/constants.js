@@ -9,6 +9,7 @@ export const UPDATE_USER = `${API_URL}user/update/`;
 export const PASSWORD_RESET_REQUEST = `${API_URL}password/passwordreset`;
 export const PASSWORD_RESET = `${API_URL}password/confirmresetpassword`;
 export const GET_JOBS = `${API_URL}jobPosting`;
+export const POST_JOBS = `${API_URL}jobPosting/addJob`;
 export const skillsData = [
   'Web Development',
   'Node JS',
