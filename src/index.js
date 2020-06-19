@@ -6,7 +6,7 @@ import Register from './components/register.component';
 import ForgotPassword from './components/forgotpassword.component';
 import Homepage from './components/homepage.component';
 import TestComponent from './TestComponent';
-import { Jobs, Dashboard } from './components';
+import { Footer, Dashboard, Jobs, PrivacyPolicy, EULA } from './components';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -23,6 +23,9 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#d41b2c',
+    },
+    text: {
+      secondary: '#fafafa',
     },
   },
 });
@@ -80,7 +83,18 @@ ReactDOM.render(
                   <Visualizations />
                 </ErrorBoundary>
               </Route>
+              <Route path="/eula">
+                <ErrorBoundary>
+                  <EULA />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/privacy-policy">
+                <ErrorBoundary>
+                  <PrivacyPolicy />
+                </ErrorBoundary>
+              </Route>
             </Switch>
+            <Footer />
           </Router>
         </ThemeProvider>
       </Provider>
