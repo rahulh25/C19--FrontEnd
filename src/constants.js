@@ -1,4 +1,4 @@
-// export const API_URL = 'http://localhost:3000/dev/';
+//export const API_URL = "http://localhost:3000/dev/";
 export const API_URL =
   'http://a64ab8a727aa9447baecb857aca27bec-1035675610.us-east-1.elb.amazonaws.com:3000/dev/';
 export const ADD_USER_API = `${API_URL}user/registration/`;
@@ -10,6 +10,7 @@ export const PASSWORD_RESET_REQUEST = `${API_URL}password/passwordreset`;
 export const PASSWORD_RESET = `${API_URL}password/confirmresetpassword`;
 export const GET_JOBS = `${API_URL}jobPosting`;
 export const POST_JOBS = `${API_URL}jobPosting/addJob`;
+export const GET_CONTRIBUTOR=`${API_URL}contributor`;
 export const skillsData = [
   'Web Development',
   'Node JS',

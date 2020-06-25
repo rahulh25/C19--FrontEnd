@@ -6,7 +6,7 @@ import Register from './components/register.component';
 import ForgotPassword from './components/forgotpassword.component';
 import Homepage from './components/homepage.component';
 import TestComponent from './TestComponent';
-import { Footer, Dashboard, Jobs, PrivacyPolicy, EULA } from './components';
+import { Contributor, Footer, Dashboard, Jobs, PrivacyPolicy, EULA } from './components';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -76,6 +76,11 @@ ReactDOM.render(
               <Route path="/jobs">
                 <ErrorBoundary>
                   <Jobs />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/contributor">
+                <ErrorBoundary>
+                  <Contributor />
                 </ErrorBoundary>
               </Route>
               <Route path="/visualizations">

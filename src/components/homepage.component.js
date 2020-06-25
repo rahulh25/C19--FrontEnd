@@ -174,7 +174,7 @@ class Homepage extends React.Component {
                   }}
                 />
                 <div class="card-body">
-                  <a href="#" id="card-title" class="card-title">
+                  <a href="/contributor" id="card-title" class="card-title">
                     CONTRIBUTORS
                   </a>
                   <p class="card-text">
