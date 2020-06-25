@@ -24,6 +24,9 @@ const theme = createMuiTheme({
     primary: {
       main: '#d41b2c',
     },
+    text: {
+      secondary: '#fafafa',
+    },
   },
 });
 
@@ -85,7 +88,18 @@ ReactDOM.render(
                   <Visualizations />
                 </ErrorBoundary>
               </Route>
+              <Route path="/eula">
+                <ErrorBoundary>
+                  <EULA />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/privacy-policy">
+                <ErrorBoundary>
+                  <PrivacyPolicy />
+                </ErrorBoundary>
+              </Route>
             </Switch>
+            <Footer />
           </Router>
         </ThemeProvider>
       </Provider>
