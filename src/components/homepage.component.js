@@ -1,18 +1,18 @@
-import React from "react";
-import "./homepage.component.css";
-import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
-import ImportantDevicesIcon from "@material-ui/icons/ImportantDevices";
-import LocalAtmIcon from "@material-ui/icons/LocalAtm";
-import BarChartIcon from "@material-ui/icons/BarChart";
-import CreateIcon from "@material-ui/icons/Create";
-import PeopleIcon from "@material-ui/icons/People";
-import Volunteer from "./images/volunteer.png";
-import Button from "@material-ui/core/Button";
-import { Toolbar } from "../components/Toolbar";
-import { withCookies } from "react-cookie";
-import { withRouter } from "react-router";
-import Link from "@material-ui/core/Link";
-import { Link as RouterLink } from "react-router-dom";
+import React from 'react';
+import './homepage.component.css';
+import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
+import ImportantDevicesIcon from '@material-ui/icons/ImportantDevices';
+import LocalAtmIcon from '@material-ui/icons/LocalAtm';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import CreateIcon from '@material-ui/icons/Create';
+import PeopleIcon from '@material-ui/icons/People';
+import Volunteer from './images/volunteer.png';
+import Button from '@material-ui/core/Button';
+import { Toolbar } from '../components/Toolbar';
+import { withCookies } from 'react-cookie';
+import { withRouter } from 'react-router';
+import Link from '@material-ui/core/Link';
+import { Link as RouterLink } from 'react-router-dom';
 
 class Homepage extends React.Component {
   constructor(props) {
@@ -21,14 +21,14 @@ class Homepage extends React.Component {
   }
   componentWillMount() {
     const { cookies } = this.props;
-    const accessInfo = cookies.get("access_info");
+    const accessInfo = cookies.get('access_info');
     if (accessInfo != undefined) {
       ///user logged in
-      this.props.history.push("/dashboard");
+      this.props.history.push('/dashboard');
     }
   }
   handleVolunteer() {
-    this.props.history.push("/login");
+    this.props.history.push('/login');
   }
   render() {
     return (
@@ -66,7 +66,7 @@ class Homepage extends React.Component {
             <div class="col-sm">
               <div class="card" id="post-project">
                 <WorkOutlineIcon
-                  style={{ fontSize: 150, margin: "auto", paddingTop: "5%" }}
+                  style={{ fontSize: 150, margin: 'auto', paddingTop: '5%' }}
                 ></WorkOutlineIcon>
                 <div class="card-body">
                   <h5 class="card-title">Post Project</h5>
@@ -79,7 +79,7 @@ class Homepage extends React.Component {
             <div class="col-sm">
               <div class="card" id="choose-volunteers">
                 <ImportantDevicesIcon
-                  style={{ fontSize: 150, margin: "auto", paddingTop: "5%" }}
+                  style={{ fontSize: 150, margin: 'auto', paddingTop: '5%' }}
                 ></ImportantDevicesIcon>
                 <div class="card-body">
                   <h5 class="card-title">Choose Volunteer Freelancers</h5>
@@ -93,7 +93,7 @@ class Homepage extends React.Component {
             <div class="col-sm">
               <div class="card" id="blog-project">
                 <LocalAtmIcon
-                  style={{ fontSize: 150, margin: "auto", paddingTop: "5%" }}
+                  style={{ fontSize: 150, margin: 'auto', paddingTop: '5%' }}
                 ></LocalAtmIcon>
                 <div class="card-body">
                   <h5 class="card-title">
@@ -108,11 +108,11 @@ class Homepage extends React.Component {
           </div>
         </div>
         {/* Body Title 2 */}
-        <div class="container" id="body-title">
+        {/* <div class="container" id="body-title">
           <h3>Know more about it !!</h3>
-        </div>
+        </div> */}
         {/* Main Body 2 */}
-        <div class="container" id="body-main-2">
+        {/* <div class="container" id="body-main-2">
           <div class="row">
             <div class="col-sm">
               <div class="card" id="">
@@ -174,7 +174,7 @@ class Homepage extends React.Component {
                   }}
                 />
                 <div class="card-body">
-                  <a href="#" id="card-title" class="card-title">
+                  <a href="/contributor" id="card-title" class="card-title">
                     CONTRIBUTORS
                   </a>
                   <p class="card-text">
@@ -184,7 +184,7 @@ class Homepage extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </React.Fragment>
     );
   }

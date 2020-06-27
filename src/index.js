@@ -1,30 +1,31 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import Login from "./components/login.component";
-import Register from "./components/register.component";
-import ForgotPassword from "./components/forgotpassword.component";
-import Homepage from "./components/homepage.component";
-import Dashboard from "./components/dashboard.component";
-import TestComponent from "./TestComponent";
-import { Jobs } from "./components";
-import * as serviceWorker from "./serviceWorker";
-import { Provider } from "react-redux";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import configureStore from "./store";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { CookiesProvider } from "react-cookie";
-import "react-notification-alert/dist/animate.css";
-import Profile from "./components/profile.component";
-import ErrorBoundary from "./components/ErrorBoundary";
-import Visualizations from "./components/Visualizations/visualizations.component";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import Login from './components/login.component';
+import Register from './components/register.component';
+import ForgotPassword from './components/forgotpassword.component';
+import Homepage from './components/homepage.component';
+import TestComponent from './TestComponent';
+import { Contributor, Footer, Dashboard, Jobs, PrivacyPolicy, EULA } from './components';
+import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import configureStore from './store';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { CookiesProvider } from 'react-cookie';
+import 'react-notification-alert/dist/animate.css';
+import Profile from './components/profile.component';
+import ErrorBoundary from './components/ErrorBoundary';
+import Visualizations from './components/Visualizations/visualizations.component';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#d41b2c",
+      main: '#d41b2c',
+    },
+    text: {
+      secondary: '#fafafa',
     },
   },
 });
@@ -59,13 +60,12 @@ ReactDOM.render(
               </Route>
               <Route path="/dashboard">
                 <ErrorBoundary>
-                  {" "}
                   <Dashboard />
                 </ErrorBoundary>
               </Route>
               <Route exact path="/">
                 <ErrorBoundary>
-                  <Homepage />{" "}
+                  <Homepage />
                 </ErrorBoundary>
               </Route>
               <Route path="/forgotPassword">
@@ -78,18 +78,34 @@ ReactDOM.render(
                   <Jobs />
                 </ErrorBoundary>
               </Route>
+              <Route path="/contributor">
+                <ErrorBoundary>
+                  <Contributor />
+                </ErrorBoundary>
+              </Route>
               <Route path="/visualizations">
                 <ErrorBoundary>
                   <Visualizations />
                 </ErrorBoundary>
               </Route>
+              <Route path="/eula">
+                <ErrorBoundary>
+                  <EULA />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/privacy-policy">
+                <ErrorBoundary>
+                  <PrivacyPolicy />
+                </ErrorBoundary>
+              </Route>
             </Switch>
+            <Footer />
           </Router>
         </ThemeProvider>
       </Provider>
     </CookiesProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

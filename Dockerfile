@@ -17,9 +17,7 @@ FROM nginx
 
 #!/bin/sh
 COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
-ARG REACT_APP_API_URL
 
-ENV REACT_APP_API_URL=$REACT_APP_API_URL
 ## Remove default nginx index page
 RUN rm -rf /usr/share/nginx/html/*
 
